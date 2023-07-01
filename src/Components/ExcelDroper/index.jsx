@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react'
-import { HiCloudArrowUp } from 'react-icons/hi2'
+import { useNavigate } from 'react-router-dom'
+import { HiCloudArrowUp, HiChevronLeft } from 'react-icons/hi2'
+import { ListTables } from '../ListTables'
 import * as XLSX from 'xlsx'
 
 const ExcelDroper = () => {
     //This will be an object of course, I just initializated as a string for design pourposes
     const [excelData, setExcelData] = useState('')
     const [students, setStudents] = useState([])
-    const [cellContent, setCellContent] = useState('');
 
-    const handleCellClick = () => {
-        cellContent === '' ? setCellContent('X') : setCellContent('')
-    };
+    //Helps us go back to the courses page
+    const navigate = useNavigate()
 
 
     //This will read the excel file and return the data into a json file
@@ -53,9 +53,8 @@ const ExcelDroper = () => {
             const newStudent = {
                 id: id,
                 name: excelData[i][2] + ' ' + excelData[i][1],
-                totalAbsences: 0,
-                absencesHistorial: [],
-
+                absences: 0,
+                totalAbsences: {}
             }
             //Adding newStudent to our useState
             listStudents.push(newStudent)
@@ -70,13 +69,15 @@ const ExcelDroper = () => {
         gatheringStudentsInfo(excelData)
     },[excelData])
 
-    /* useEffect(() => {
-        console.log(students, 'Siuuuu');
-    }, [students]) */
-    
-
     return(
         <div>
+            <div 
+            onClick={() => navigate('/')}
+            className='flex w-[9.2rem] cursor-pointer'>
+                <HiChevronLeft className='h-6 w-6'></HiChevronLeft>
+                <p className='pl-4'>Volver a cursos</p>
+            </div>
+            
             {
                 excelData == ''
                 ?
@@ -95,36 +96,14 @@ const ExcelDroper = () => {
 
                 :
 
-                <div className='h-auto flex flex-col justify-center items-center'>
-                    <div className='w-full flex justify-around'>
-                        <table className='w-full border-collapse border border-slate-500'>
-                            <thead>
-                                <tr>
-                                    <th className='border border-black bg-slate-600 text-white'>N°</th>
-                                    <th className='border border-black bg-slate-600 text-white'>Nombre</th>
-                                    <th className='border border-black bg-slate-600 text-white'>Fallas</th>
-                                    <th className='border border-black bg-slate-600 text-white'>Total Fallas</th>
-                                    <th className='border border-black bg-slate-600 text-white'>Excusa</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                
-                                {students.map((student, index) => 
-                                    <tr key={index} className='text-center'>
-                                        <td className="border border-slate-700">{student.id}</td>
-                                        <td className="border border-slate-700">{student.name}</td>
-
-                                        <td className="border border-slate-700 cursor-pointer hover:bg-red-400"
-                                            onClick={handleCellClick}
-                                        >{cellContent}</td>
-
-                                        <td className="border border-slate-700">{student.totalAbsences}</td>
-                                        <td className="border border-slate-700">Excusa</td>
-                                    </tr>
-                                )}
-
-                            </tbody>
-                        </table>
+                <div className='h-[90vh] flex flex-col justify-center items-center'>
+                    <div className='h-[80vh] w-full flex justify-center'>
+                        <div className='h-[100%] overflow-auto'>
+                            <ListTables students={students}></ListTables>
+                        </div>
+                    </div>
+                    <div className='mt-4'>
+                        <button className='border border-black rounded-lg p-2 bg-black text-white hover:bg-white hover:text-black'>Guardar cambios</button>
                     </div>
                 </div>
             }

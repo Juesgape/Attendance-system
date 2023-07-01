@@ -9,6 +9,7 @@ const GradesMenu = ({children}) => {
             idCourses,
             setIdCourses    
     } = CoursesContext()
+
     const [clickedAddCourseButton, setClickedAddCourseButton] = useState(false)
     const [gradeName, setGradeName] = useState('')
     const [mainTeacherName, setMainTeacherName] = useState('')
@@ -22,7 +23,8 @@ const GradesMenu = ({children}) => {
         const courseStructure = {
             id: idCourses,
             name: gradeName,
-            mainTeacher: teacherName,
+            teacher: teacherName,
+            students: [],
             totalStudents: 0,
             lastModified: null
         }
