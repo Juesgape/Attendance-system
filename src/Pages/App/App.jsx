@@ -16,7 +16,7 @@ const App = () => {
       <CoursesContextProvider>
         <Layout>
           <Routes>
-            <Route path="/" element={<Home />}/>
+            <Route path="/" element={<Protected> <Home /> </Protected>}/>
             <Route path="/signin" element={<Log />}/>
             <Route path="/account" element={<Protected> <Account /> </Protected>}/>
             <Route path="/list" element={<Protected> <List></List>  </Protected>}></Route>

@@ -1,13 +1,20 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { HiCloudArrowUp, HiChevronLeft } from 'react-icons/hi2'
 import { ListTables } from '../ListTables'
 import * as XLSX from 'xlsx'
+import { getTodaysDate } from '../../Utils'
+import { CoursesContext } from '../../context/CoursesContext'
 
 const ExcelDroper = () => {
     //This will be an object of course, I just initializated as a string for design pourposes
     const [excelData, setExcelData] = useState('')
-    const [students, setStudents] = useState([])
+    
+    const { courses,
+            setCourses,
+            currentCourse, 
+            setCurrentCourse
+        } = CoursesContext()
 
     //Helps us go back to the courses page
     const navigate = useNavigate()
@@ -36,7 +43,7 @@ const ExcelDroper = () => {
         event.preventDefault();
     }
 
-    const gatheringStudentsInfo = (excelData) => {
+    const gatheringStudentsInfo = useCallback((excelData) => {
         let listStudents = []
         //assigning correct id
         let id = 0
@@ -53,21 +60,37 @@ const ExcelDroper = () => {
             const newStudent = {
                 id: id,
                 name: excelData[i][2] + ' ' + excelData[i][1],
-                absences: 0,
-                totalAbsences: {}
+                absencesThisMonth: 0,
+                totalAbsences: {},
+                excuses: {}
             }
             //Adding newStudent to our useState
             listStudents.push(newStudent)
             //updating id
             id += 1
         }
-        setStudents([...students, listStudents].flat())
-    }
+        const updatedCourse = {
+            ...currentCourse,
+            students: listStudents,
+            totalStudents: listStudents.length
+        }
 
-    //Execute the function once the excel data is loaded
+        //update the COURSES with the new students information of the course
+        const updatedCourses = courses.map((course) => {
+            if (course.id === updatedCourse.id) {
+                return updatedCourse;
+            }
+            return course;
+        });
+        setCurrentCourse(updatedCourse)
+        setCourses(updatedCourses)
+    }, []);
+
     useEffect(() => {
-        gatheringStudentsInfo(excelData)
-    },[excelData])
+        if(excelData !== '') {
+            gatheringStudentsInfo(excelData)
+        }
+    }, [excelData, gatheringStudentsInfo])
 
     return(
         <div>
@@ -79,10 +102,10 @@ const ExcelDroper = () => {
             </div>
             
             {
-                excelData == ''
+                currentCourse.students.length < 1
                 ?
                 <div className='h-[90vh] flex flex-col justify-center items-center'>
-                    <p>Nombre de la clase: {}</p>
+                    <p>Nombre de la clase: {currentCourse.name}</p>
                     <div 
                         onDrop={handleDrop}
                         onDragOver={handleDragOver}
@@ -99,11 +122,12 @@ const ExcelDroper = () => {
                 <div className='h-[90vh] flex flex-col justify-center items-center'>
                     <div className='h-[80vh] w-full flex justify-center'>
                         <div className='h-[100%] overflow-auto'>
-                            <ListTables students={students}></ListTables>
+                            <ListTables students={currentCourse.students}></ListTables>
                         </div>
                     </div>
-                    <div className='mt-4'>
+                    <div className='w-full mt-4 flex items-center justify-evenly'>
                         <button className='border border-black rounded-lg p-2 bg-black text-white hover:bg-white hover:text-black'>Guardar cambios</button>
+                        <p>Fecha: {getTodaysDate()}</p>
                     </div>
                 </div>
             }

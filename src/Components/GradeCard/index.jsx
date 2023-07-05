@@ -1,9 +1,15 @@
 import { useState } from 'react'
-import {HiTrash} from 'react-icons/hi'
+import { useNavigate } from 'react-router-dom'
+import { HiTrash } from 'react-icons/hi'
 import { CoursesContext } from '../../context/CoursesContext'
 
-const GradeCard = ({id, gradeName, teacher, lastModified, totalStudents}) => {
-    const {courses, setCourses} = CoursesContext()
+const GradeCard = ({id, gradeName, teacher}) => {
+    const { courses, 
+            setCourses,
+            setCurrentCourse,
+        } = CoursesContext()
+
+    const navigate = useNavigate()
 
     const deleteCourse = (courseId) => {
         const updatedCourses = courses.filter((course, index) => index !== courseId);
@@ -14,8 +20,28 @@ const GradeCard = ({id, gradeName, teacher, lastModified, totalStudents}) => {
         setCourses(updatedCourses)
     }
 
+    const findCourseClicked = (courseId) => {
+        const options = { dateStyle: 'short', timeStyle: 'short' }
+        const currentDateTime = new Date().toLocaleString(undefined, options)
+        //courseId is equivalent to the position of the course in the courses array
+        const course = courses.find((course, index) => index === courseId);
+        //Modified the lastModified attribute on course
+        course.lastModified = currentDateTime
+        setCurrentCourse(course);
+        navigate('/list')
+    }
+
+    const findCourse = (id) => {
+        const courseFound = courses.find((course, index) => index === id)
+        return courseFound
+    }
+
+    console.log(courses);
+
     return(
-        <div className="bg-gray-100 w-[500px] px-4 py-8 rounded-lg cursor-pointer border border-black">
+        <div 
+            onClick={() => findCourseClicked(id)}
+            className="bg-gray-100 w-[500px] px-4 py-8 rounded-lg cursor-pointer border border-black">
 
             <div className="flex justify-between">
                 <div>
@@ -32,10 +58,10 @@ const GradeCard = ({id, gradeName, teacher, lastModified, totalStudents}) => {
 
             <div className="flex justify-between mt-8">
                 <div>
-                    <p>Última modificación: <span className='font-light'>{lastModified ? lastModified : '00:00'}</span></p>
+                    <p>Última modificación: <span className='font-light'>{findCourse(id).lastModified ? findCourse(id).lastModified : '00:00'}</span></p>
                 </div>
                 <div>
-                    <p>Total estudiantes: <span className='font-light'>{totalStudents ? totalStudents : '0'}</span></p>
+                    <p>Total estudiantes: <span className='font-light'>{findCourse(id).totalStudents ? findCourse(id).totalStudents : '0'}</span></p>
                 </div>
             </div>
 

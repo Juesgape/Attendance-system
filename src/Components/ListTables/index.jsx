@@ -1,14 +1,39 @@
-import { React, useState } from "react";
-import { updateTotalAbsences } from "../../Utils";
+import { React, useEffect, useState } from "react";
+import { 
+        updateTotalAbsences, 
+        checkTodaysAbsence,
+        checkTodaysExcuse, 
+        setStudentExcuse,
+    
+    } from "../../Utils";
 
 //Separated cell component so that each X cell is differento for absences
 
 const Cell = ({student}) => {
     const [cellContent, setCellContent] = useState('');
+    const [excuse, setExcuse] = useState('')
+    const [updateEmptyString, setUpdateEmptyString] = useState(false)
+    //Checking if student already has an excuse for today
+    const todaysExcuse = checkTodaysExcuse(student).length === 1 ? '' : checkTodaysExcuse(student)
 
     const handleCellClick = () => {
         setCellContent(cellContent === '' ? 'X' : '');
     };
+
+    //Check if student already have the absence to put an X in the interface
+    useEffect(() => {
+        if(checkTodaysAbsence(student)) {
+            handleCellClick()
+        }
+    }, []) 
+
+    useEffect(() => {
+        if(!updateEmptyString) {
+            setUpdateEmptyString(true)
+        } else {
+            setStudentExcuse(excuse, student)
+        }
+    },[excuse])
 
     return (
         <>
@@ -22,8 +47,17 @@ const Cell = ({student}) => {
             >
                 {cellContent}
             </td>
-            <td className="border w-[10rem] text-center border-slate-700">{student.absences}</td>
-            <td className="w-[10rem] h-auto border text-center border-slate-700">Excusa</td>
+            <td className="border w-[10rem] text-center border-slate-700">{student.absencesThisMonth}</td>
+            <td className="w-[10rem] h-auto border text-center border-slate-700">
+                <input 
+                    onChange={(event) => {
+                        setExcuse(event.target.value)
+                    }} 
+                    className="text-center p-[1rem] h-[auto] focus:outline-none" 
+                    type="text" 
+                    placeholder="Escriba excusa"
+                    value={excuse || todaysExcuse}/> 
+            </td> 
         </>
     );
 };
@@ -36,8 +70,8 @@ const ListTables = ({students}) => {
                 <tr>
                     <th className='border border-black bg-slate-600 text-white'>N°</th>
                     <th className='border border-black bg-slate-600 text-white'>Nombre</th>
-                    <th className='border border-black bg-slate-600 text-white'>Fallas</th>
-                    <th className='border border-black bg-slate-600 text-white'>Total Fallas</th>
+                    <th className='border border-black bg-slate-600 text-white'>Falla</th>
+                    <th className='border border-black bg-slate-600 text-white'>Fallas este mes</th>
                     <th className='border border-black bg-slate-600 text-white'>Excusa</th>
                 </tr>
             </thead>

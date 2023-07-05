@@ -19,7 +19,7 @@ function Home() {
                         key={index}
                         id={course.id}
                         gradeName={course.name}
-                        teacher={course.mainTeacher}
+                        teacher={course.teacher}
                     ></GradeCard>
             )}
             </GradesMenu>
