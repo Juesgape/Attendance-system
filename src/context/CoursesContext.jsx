@@ -13,6 +13,8 @@ const CoursesContextProvider = ({children}) => {
     const [displayStudentStatistics, setDisplayStudentsStatistics] = useState(false)
     //This will helps us show the data of the student that we click on in our different lists
     const [displayCurrentStudent, setDisplayCurrentStudent] = useState({})
+    //We want to know when the teacher needs to edit a list, you know, add and remove students
+    const [wantToEditList, setWantToEditList] = useState(false)
     
 
     //Check if courses exist to that id have the corresponding id
@@ -32,7 +34,9 @@ const CoursesContextProvider = ({children}) => {
                 displayStudentStatistics,
                 setDisplayStudentsStatistics,
                 displayCurrentStudent, 
-                setDisplayCurrentStudent
+                setDisplayCurrentStudent,
+                wantToEditList,
+                setWantToEditList
             }}
         >
             {children}

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { HiCloudArrowUp, HiChevronLeft } from 'react-icons/hi2'
+import { HiPencil, HiOutlineX } from 'react-icons/hi'
 import { ListTables } from '../ListTables'
 import * as XLSX from 'xlsx'
 import { getTodaysDate } from '../../Utils'
@@ -13,7 +14,9 @@ const ExcelDroper = () => {
     const { courses,
             setCourses,
             currentCourse, 
-            setCurrentCourse
+            setCurrentCourse,
+            wantToEditList,
+            setWantToEditList
         } = CoursesContext()
 
     //Helps us go back to the courses page
@@ -164,7 +167,27 @@ const ExcelDroper = () => {
                         </div>
                     </div>
                     <div className='w-full mt-4 flex items-center justify-evenly'>
-                        <button className='border border-black rounded-lg p-2 bg-black text-white hover:bg-white hover:text-black'>Guardar cambios</button>
+                        {
+                            wantToEditList == false ? 
+                                <button 
+                                    className='border flex items-center justify-center w-[8rem] border-black rounded-lg p-2 bg-black text-white hover:bg-white hover:text-black'
+                                    onClick={() => setWantToEditList(true)}
+                                >
+                                    Editar Lista 
+                                    <HiPencil className="w-5 h-5 ml-1"/>
+                                </button>
+                            
+                            :
+
+                            <button 
+                                className='border flex items-center justify-center w-[12rem] border-black rounded-lg p-2 bg-white text-black'
+                                onClick={() => setWantToEditList(false)}
+                            >
+                                Dejar de editar lista
+                                <HiOutlineX className="w-4 h-4 ml-1"/>
+                            </button>
+
+                        }
                         <p>Fecha: {getTodaysDate()}</p>
                     </div>
                 </div>
