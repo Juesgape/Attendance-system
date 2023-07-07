@@ -62,7 +62,7 @@ const ExcelDroper = () => {
                 name: excelData[i][2] + ' ' + excelData[i][1],
                 absencesThisMonth: 0,
                 totalAbsences: {},
-                excuses: {}
+                excuses: {jul:{'3/7/23': 'Clicka','4/7/23': 'Clicka','5/7/23': 'Clicka','6/7/23': 'Clicka','7/7/23': 'Clicka','8/7/23': 'Clicka'},}
             }
             //Adding newStudent to our useState
             listStudents.push(newStudent)

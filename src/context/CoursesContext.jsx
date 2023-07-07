@@ -7,8 +7,13 @@ const CoursesContextProvider = ({children}) => {
     const [courses, setCourses] = useState([])
     //this will put an id for every new course based on the length of the 'courses' variable
     const [idCourses, setIdCourses] = useState(0)
-    //This currentCourse will help us to navigate throgh the different student's list that we have
+    //This currentCourse will help us to navigate though the different student's list that we have
     const [currentCourse, setCurrentCourse] = useState({})
+    //Display the student data when the teacher clicks on one
+    const [displayStudentStatistics, setDisplayStudentsStatistics] = useState(false)
+    //This will helps us show the data of the student that we click on in our different lists
+    const [displayCurrentStudent, setDisplayCurrentStudent] = useState({})
+    
 
     //Check if courses exist to that id have the corresponding id
     useEffect(() => {
@@ -23,7 +28,11 @@ const CoursesContextProvider = ({children}) => {
                 idCourses,
                 setIdCourses,
                 currentCourse,
-                setCurrentCourse
+                setCurrentCourse,
+                displayStudentStatistics,
+                setDisplayStudentsStatistics,
+                displayCurrentStudent, 
+                setDisplayCurrentStudent
             }}
         >
             {children}
