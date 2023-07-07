@@ -20,11 +20,31 @@ const ExcelDroper = () => {
     const navigate = useNavigate()
 
 
-    //This will read the excel file and return the data into a json file
     const handleDrop = (event) => {
-        event.preventDefault()
-        const file = event.dataTransfer.files[0]
-        if (file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+        event.preventDefault();
+        const file = event.dataTransfer.files[0];
+        processFile(file);
+    };
+
+    const handleDragOver = (event) => {
+        event.preventDefault();
+    };
+
+    const handleButtonClick = () => {
+        const fileInput = document.getElementById('fileInput');
+        fileInput.click();
+    };
+
+    const handleFileSelect = (event) => {
+        const file = event.target.files[0];
+        processFile(file);
+    };
+    
+    const processFile = (file) => {
+        if (
+            file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' ||
+            file.type === 'application/vnd.ms-excel'
+        ) {
             const reader = new FileReader();
             reader.onload = function (event) {
                 const data = event.target.result;
@@ -32,16 +52,12 @@ const ExcelDroper = () => {
                 const worksheet = workbook.Sheets[workbook.SheetNames[0]];
                 const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
                 setExcelData(jsonData);
-            };
-            reader.readAsBinaryString(file);
+        };
+        reader.readAsBinaryString(file);
         } else {
-            console.log('Invalid file format. Please drop an Excel file.');
+            console.log('Invalid file format. Please select an Excel file.');
         }
-    }
-
-    const handleDragOver = (event) => {
-        event.preventDefault();
-    }
+    };
 
     const gatheringStudentsInfo = useCallback((excelData) => {
         let listStudents = []
@@ -61,8 +77,15 @@ const ExcelDroper = () => {
                 id: id,
                 name: excelData[i][2] + ' ' + excelData[i][1],
                 absencesThisMonth: 0,
-                totalAbsences: {},
-                excuses: {jul:{'3/7/23': 'Clicka','4/7/23': 'Clicka','5/7/23': 'Clicka','6/7/23': 'Clicka','7/7/23': 'Clicka','8/7/23': 'Clicka'},}
+                totalAbsences: {
+                    may:['3/5/2023','4/5/2023'],
+                    jun:['3/6/2023','4/6/2023'],
+                },
+                excuses: {  
+                            apr:{'3/4/2023': 'Enfermedad','4/4/2023': 'Asuntos familiares'},
+                            may:{'3/5/2023': 'Enfermedad','4/5/2023': 'Asuntos familiares'},
+                            jun:{'3/6/2023': 'Enfermedad','4/6/2023': 'Asuntos familiares'},
+                        }
             }
             //Adding newStudent to our useState
             listStudents.push(newStudent)
@@ -113,7 +136,22 @@ const ExcelDroper = () => {
                     >
                         <HiCloudArrowUp className='w-10 h-10'/>
                         <p className='text-lg pb-8'>Arrastra y suelta los archivos aquí</p>
-                        <button className='border border-black rounded-lg p-2 hover:bg-black hover:text-white'>Seleccionar archivo</button>
+                        <input 
+                            type="file" 
+                            accept='.xlsx, .xls'
+                            className='hidden'
+                            id='fileInput'
+                            onChange={handleFileSelect}
+                        />
+                        <label htmlFor="fileInput">
+                            <button 
+                                className='border border-black rounded-lg p-2 hover:bg-black hover:text-white'
+                                onClick={handleButtonClick}
+                                >
+                                    Seleccionar archivo
+                            
+                            </button>
+                        </label>
                     </div>
                 </div>
 

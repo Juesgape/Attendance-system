@@ -4,38 +4,34 @@ import {HiXCircle, HiClipboardCheck} from 'react-icons/hi'
 
 
 const MonthsExcuseCards = ({student}) => {
-    const [excusesString, setExcusesString] = useState('')
     const [currentMonth, setCurrentMonth] = useState('')
+    const [excuseFormonth, setExcuseForMonth] = useState({})
 
     const updateExcusesString = (month) => {
-        const excusesForMonth = student.excuses[month];
-        if (excusesForMonth) {
-            const formattedExcuses = Object.entries(excusesForMonth)
-                .map(([date, excuse]) => `${date}: ${excuse}`)
-                .join(', ');
-        
-            setExcusesString(formattedExcuses);
+        const studentExcuses = student.excuses[month];
+        if (studentExcuses) {
+            setExcuseForMonth(studentExcuses)
             setCurrentMonth(month);
         } else {
-            setExcusesString('');
             setCurrentMonth('');
+            setExcuseForMonth({})
         }
     };
     
     useEffect(() => {
-        setExcusesString('');
         setCurrentMonth('');
+        setExcuseForMonth({})
     }, [student.excuses]);
 
     return(
         <div>
             <div>
-                <div className="flex flex-wrap max-w-[400px] gap-3">
+                <div className="flex justify-evenly flex-wrap max-w-[400px] gap-3">
                     {
                         Object.keys(student.excuses).map((month, index) => 
                             <div 
                                 key={index} 
-                                className="rounded-lg flex items-center justify-center w-[4rem] mb-2 mt-2 border border-black cursor-pointer bg-black text-white hover:bg-green-400 hover:text-black"
+                                className="rounded-lg uppercase flex items-center justify-center w-[5rem] mb-2 mt-2 border border-black cursor-pointer bg-blue-400 text-white hover:text-black"
                                 onClick={() => {
                                     updateExcusesString(month)
                                 }}
@@ -45,7 +41,7 @@ const MonthsExcuseCards = ({student}) => {
                         )
                     }
                 </div>
-                <div className="flex flex-col justify-center items-center">
+                <div className="flex flex-col justify-center items-center mb-8 mt-4">
                 {currentMonth !== '' && (
                     <div>
                         <p>
@@ -54,8 +50,17 @@ const MonthsExcuseCards = ({student}) => {
                         estudiante tuvo las siguientes excusas:
                         </p>
                         <div className="flex flex-col justify-center items-center mt-2">
-                            <div className="w-[350px]">
-                                <span>{excusesString}</span>
+                            <div className="w-[350px] flex flex-wrap items-center justify-evenly">
+                                {
+                                    Object.entries(excuseFormonth).map(([date, excuse], index) => 
+                                        <div key={index}>
+                                            <div className="text-center border border-black rounded-lg p-2">
+                                                <p className="font-bold">{date}</p>
+                                                <p>{excuse}</p>
+                                            </div>
+                                        </div>
+                                    )
+                                }
                             </div>
                         </div>
                     </div>
@@ -68,30 +73,36 @@ const MonthsExcuseCards = ({student}) => {
 }
 
 const MonthsCards = ({student}) => {
-    const [absencesString, setAbsencesString] = useState('')
     const [currentMonth, setCurrentMonth] = useState('')
+    const [absencesForMonth, setAbsencesForMonth] = useState([])
 
-    const updateAbsencesString = (month) => {
-        setAbsencesString(student.totalAbsences[month].join(', '));
-        setCurrentMonth(month);
-    };
+    const updateAbsencesForMonth = (month) => {
+        const absencesForThisMonth = student.totalAbsences[month]
+        if(absencesForThisMonth) {
+            setAbsencesForMonth(absencesForThisMonth)
+            setCurrentMonth(month)
+        } else {
+            setAbsencesForMonth([])
+            setCurrentMonth('')
+        }
+    }
     
     useEffect(() => {
-        setAbsencesString('');
+        setAbsencesForMonth([]);
         setCurrentMonth('');
     }, [student]);
 
     return(
         <div>
             <div>
-                <div className="flex flex-wrap max-w-[400px] gap-3">
+                <div className="flex justify-evenly flex-wrap max-w-[400px] gap-3">
                     {
                         Object.keys(student.totalAbsences).map((month, index) => 
                             <div 
                                 key={index} 
-                                className="rounded-lg flex items-center justify-center w-[4rem] mb-2 mt-2 border border-black cursor-pointer bg-black text-white hover:bg-green-400 hover:text-black"
+                                className="rounded-lg uppercase flex items-center justify-center w-[4rem] mb-2 mt-2 border border-black cursor-pointer bg-red-400 hover:text-white"
                                 onClick={() => {
-                                    updateAbsencesString(month)
+                                    updateAbsencesForMonth(month)
                                 }}
                                 >
                                 <p className="text-xl m-1">{month}</p>
@@ -99,15 +110,25 @@ const MonthsCards = ({student}) => {
                         )
                     }
                 </div>
-                <div>
+                <div className="mb-8">
                 {currentMonth !== '' && (
-                    <div>
+                    <div className="mt-4">
                         <p>
                         En el mes de{' '}
                             <span className="uppercase font-semibold">{currentMonth}</span> el
                         estudiante faltó los siguientes días:
                         </p>
-                        <span>{absencesString}</span>
+                        <div className="flex justify-evenly">
+                            {
+                                absencesForMonth.map((monthDay, index) => 
+                                    <div className="mt-4" key={index}>
+                                        <div className="text-center border border-black bg-gray-200 rounded-lg p-2">
+                                            <p className="font-bold">{monthDay}</p>
+                                        </div>
+                                    </div>
+                                )
+                            }
+                        </div>
                     </div>
                 )}
                     
@@ -149,8 +170,8 @@ const StudentStatistics = () => {
                             )}
 
                             {hasExcuses && (
-                                <div className="border-b-2">
-                                    <p className="font-light">Excusas:</p>
+                                <div className="border-b-2 mt-2">
+                                    <p className="font-light mb-2">Excusas:</p>
                                     <MonthsExcuseCards student={displayCurrentStudent} />
                                 </div>
                             )}
