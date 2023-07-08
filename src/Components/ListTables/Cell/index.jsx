@@ -7,6 +7,7 @@ import {
     } from "../../../Utils";
 
 import { CoursesContext } from "../../../context/CoursesContext";
+import { HiPencil, HiTrash } from "react-icons/hi";
 
 //Separated cell component so that each X cell is differento for absences
 
@@ -16,7 +17,9 @@ const Cell = ({student}) => {
             setDisplayStudentsStatistics, 
             setDisplayCurrentStudent,
             wantToEditList,
-            setWantToEditList
+            setWantToDeleteStudent,
+            wantToEditStudent,
+            setWantToEditStudent
         } = CoursesContext()
 
     const [cellContent, setCellContent] = useState('');
@@ -69,13 +72,30 @@ const Cell = ({student}) => {
                 }}
             >
                 <div>
-                    <p className="group-hover:invisible">{student.name}</p>
+                    <p className={`${wantToEditList == false ? 'group-hover:invisible' : 'group-hover:visible mr-16'} `}>{student.name}</p>
                     {
                         wantToEditList == false
                         ? 
                         <div className="invisible top-4 font-bold absolute group-hover:visible">MOSTRAR ESTADÍSTICAS DEL ESTUDIANTE</div>
                         :
-                        <div className="invisible top-4 font-bold absolute group-hover:visible">EDITAR INFORMACIÓN DEL ESTUDIANTE</div>
+                        <div className="top-5 right-2 font-bold absolute">
+                            <div className="flex justify-end w-full">
+                                <HiPencil 
+                                    className="w-6 h-6 hover:text-white"
+                                    onClick={() => {
+                                        setDisplayCurrentStudent(student)
+                                        setWantToEditStudent(true)
+                                    }}
+                                />
+                                <HiTrash 
+                                    className="w-6 h-6 hover:text-white" 
+                                    onClick={() => {
+                                        setDisplayCurrentStudent(student)
+                                        setWantToDeleteStudent(true)
+                                    }}
+                                />
+                            </div>
+                        </div>
                     }
                 </div>
             </td>

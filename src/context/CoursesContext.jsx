@@ -15,6 +15,12 @@ const CoursesContextProvider = ({children}) => {
     const [displayCurrentStudent, setDisplayCurrentStudent] = useState({})
     //We want to know when the teacher needs to edit a list, you know, add and remove students
     const [wantToEditList, setWantToEditList] = useState(false)
+    //State for the delete student window warner
+    const [wantToDeleteStudent, setWantToDeleteStudent] = useState(false)
+    //State to show the window for editing the student
+    const [wantToEditStudent, setWantToEditStudent] = useState(false)
+    //Display AddStudent window
+    const [wantToAddNewStudent, setWantToAddNewStudent] = useState(false)
     
 
     //Check if courses exist to that id have the corresponding id
@@ -36,7 +42,13 @@ const CoursesContextProvider = ({children}) => {
                 displayCurrentStudent, 
                 setDisplayCurrentStudent,
                 wantToEditList,
-                setWantToEditList
+                setWantToEditList,
+                wantToDeleteStudent,
+                setWantToDeleteStudent,
+                wantToEditStudent,
+                setWantToEditStudent,
+                wantToAddNewStudent, 
+                setWantToAddNewStudent
             }}
         >
             {children}

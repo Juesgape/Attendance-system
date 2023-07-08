@@ -1,6 +1,8 @@
-import { StudentStatistics } from "../StudentStatistics";
 import { Cell } from "./Cell";
-import { HiPencil } from "react-icons/hi";
+import { StudentStatistics } from "../StudentStatistics";
+import { DeleteWindow } from "../DeleteStudentWindow";
+import { ModifyStudentWindow } from "../ModifyStudentWindow";
+import { AddStudentWindow } from "../AddStudentWindow";
 
 const ListTables = ({students}) => {
 
@@ -27,6 +29,9 @@ const ListTables = ({students}) => {
             </table>
 
             <StudentStatistics></StudentStatistics>
+            <DeleteWindow></DeleteWindow>
+            <ModifyStudentWindow></ModifyStudentWindow>
+            <AddStudentWindow></AddStudentWindow>
         </div>
     )
 }

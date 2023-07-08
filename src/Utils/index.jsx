@@ -91,10 +91,32 @@ const setStudentExcuse = (excuse, student) => {
     }
 }
 
+//Sort students list by name
+const sortStudentsListByName = (course) => {
+    course.students.sort((a, b) => {
+        const nameA = a.name.toLowerCase();
+        const nameB = b.name.toLowerCase();
+
+        if (nameA < nameB) {
+          return -1; // a should be sorted before b
+        }
+        if (nameA > nameB) {
+          return 1; // a should be sorted after b
+        }
+        return 0; // names are equal, no sorting needed
+    })
+
+    for(let i = 0; i < course.students.length; i++) {
+        course.students[i].id = i
+    }
+    return course.students
+}
+
 export {
     updateTotalAbsences,
     getTodaysDate,
     checkTodaysAbsence,
     setStudentExcuse,
-    checkTodaysExcuse
+    checkTodaysExcuse,
+    sortStudentsListByName
 }

@@ -16,7 +16,9 @@ const ExcelDroper = () => {
             currentCourse, 
             setCurrentCourse,
             wantToEditList,
-            setWantToEditList
+            setWantToEditList,
+            wantToAddNewStudent, 
+            setWantToAddNewStudent
         } = CoursesContext()
 
     //Helps us go back to the courses page
@@ -178,14 +180,25 @@ const ExcelDroper = () => {
                                 </button>
                             
                             :
+                            
+                            <div className='flex justify-evenly'>
+                                <button 
+                                    className='border flex items-center justify-center w-[12rem] border-black rounded-lg p-2 bg-white text-black'
+                                    onClick={() => setWantToEditList(false)}
+                                >
+                                    Dejar de editar lista
+                                    <HiOutlineX className="w-4 h-4 ml-1"/>
+                                </button>
+                                <div className='ml-10'>
+                                    <button 
+                                        className='border flex items-center justify-center w-[12rem] border-black rounded-lg p-2 bg-blue-400 text-white hover:text-black'
+                                        onClick={() => setWantToAddNewStudent(true)}
+                                    >
+                                        Añadir estudiante
+                                    </button>
+                                </div>
 
-                            <button 
-                                className='border flex items-center justify-center w-[12rem] border-black rounded-lg p-2 bg-white text-black'
-                                onClick={() => setWantToEditList(false)}
-                            >
-                                Dejar de editar lista
-                                <HiOutlineX className="w-4 h-4 ml-1"/>
-                            </button>
+                            </div>
 
                         }
                         <p>Fecha: {getTodaysDate()}</p>
