@@ -21,6 +21,9 @@ const CoursesContextProvider = ({children}) => {
     const [wantToEditStudent, setWantToEditStudent] = useState(false)
     //Display AddStudent window
     const [wantToAddNewStudent, setWantToAddNewStudent] = useState(false)
+    //Display deleting course widow
+    const [wantToDeleteCourse, setWantToDeleteCourse] = useState(false)
+    const [courseToDelete, setCourseToDelete] = useState({})
     
 
     //Check if courses exist to that id have the corresponding id
@@ -48,7 +51,11 @@ const CoursesContextProvider = ({children}) => {
                 wantToEditStudent,
                 setWantToEditStudent,
                 wantToAddNewStudent, 
-                setWantToAddNewStudent
+                setWantToAddNewStudent,
+                wantToDeleteCourse,
+                setWantToDeleteCourse,
+                courseToDelete,
+                setCourseToDelete
             }}
         >
             {children}

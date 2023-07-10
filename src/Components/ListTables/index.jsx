@@ -10,8 +10,7 @@ const ListTables = ({students}) => {
     const { displayStudentStatistics, 
             wantToDeleteStudent,
             wantToEditStudent,
-            wantToAddNewStudent
-
+            wantToAddNewStudent,
     } = CoursesContext()
 
     return(

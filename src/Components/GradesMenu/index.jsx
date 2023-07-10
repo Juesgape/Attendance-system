@@ -9,11 +9,14 @@ const GradesMenu = ({children}) => {
     //Variables from context that we'll use in order to create courses
     const { courses, 
             setCourses,
+            wantToDeleteCourse
     } = CoursesContext()
 
     const [clickedAddCourseButton, setClickedAddCourseButton] = useState(false)
     const [gradeName, setGradeName] = useState('')
     const [mainTeacherName, setMainTeacherName] = useState('')
+    //Making sure the inputs are filled correctly
+    const [areInputsFilled, setAreInputsFilled] = useState(true)
 
     const addNewCourse = (course) => {
         const newCourses = [...courses, course]
@@ -21,19 +24,27 @@ const GradesMenu = ({children}) => {
     }
 
     const handleNewCourseCreation = (gradeName, teacherName) => {
-        if(!gradeName.toLowerCase().startsWith('grado')) {
-          gradeName = 'Grado ' + gradeName
-        }
-        const courseStructure = {
-            id: courses.length,
-            name: gradeName,
-            teacher: teacherName,
-            students: [],
-            totalStudents: 0,
-            lastModified: null
-        }
 
-        addNewCourse(courseStructure)
+      if (gradeName === '' || mainTeacherName === '') {
+        setAreInputsFilled(false)
+        return
+      }
+
+      if(!gradeName.toLowerCase().startsWith('grado')) {
+        gradeName = 'Grado ' + gradeName
+      }
+      const courseStructure = {
+          id: courses.length,
+          name: gradeName,
+          teacher: teacherName,
+          students: [],
+          totalStudents: 0,
+          lastModified: null
+      }
+      addNewCourse(courseStructure)
+      setClickedAddCourseButton(!clickedAddCourseButton);
+      setAreInputsFilled(true)
+      clearInputs();
     }
 
     const clearInputs = () => {
@@ -43,7 +54,7 @@ const GradesMenu = ({children}) => {
 
     return (
         <div className="relative mt-[8rem] w-[100%] m-auto">
-          <div className={`${clickedAddCourseButton ? 'blur-sm pointer-events-none' : 'blur-none'}`}>
+          <div className={`${clickedAddCourseButton || wantToDeleteCourse ? 'blur-sm pointer-events-none' : 'blur-none'}`}>
             {children.length > 0 ? (
               <div className="mb-16">
                 <Carousel
@@ -105,6 +116,7 @@ const GradesMenu = ({children}) => {
                   className="w-7 h-7 cursor-pointer hover:text-blue-400"
                   onClick={() => {
                     setClickedAddCourseButton(!clickedAddCourseButton)
+                    setAreInputsFilled(true)
                     clearInputs();
                   }}
                 />
@@ -139,14 +151,23 @@ const GradesMenu = ({children}) => {
                   autoComplete=""
                 />
               </div>
+
+              {
+                areInputsFilled 
+                ?
+                  ''
+                :
+                <div className="flex justify-center">
+                  <p className="text-red-400">Rellena los campos correctamente</p>
+                </div>
+
+              }
     
               <div className="w-full mt-8 mb-4 flex justify-center">
                 <button
                   className="bg-green-400 border border-black p-2 rounded-lg font-bold hover:text-white"
                   onClick={() => {
                     handleNewCourseCreation(gradeName, mainTeacherName);
-                    setClickedAddCourseButton(!clickedAddCourseButton);
-                    clearInputs();
                   }}
                 >
                   Crear nuevo curso

@@ -55,6 +55,7 @@ const ModifyStudentWindow = () => {
                                     className="border border-black rounded-lg w-[16rem] p-2"    
                                     onChange={(event) => setNewStudentName(event.target.value)}
                                     value={newStudentName}
+                                    autoComplete="off"
                                 />
                             </div>
 

@@ -18,7 +18,7 @@ const StudentStatistics = () => {
     const hasExcuses =  displayCurrentStudent?.excuses && Object.keys(displayCurrentStudent.excuses).length > 0
 
     return (
-        <div className={`${displayStudentStatistics ? 'visible' : 'invisible'} absolute flex flex-col justify-center items-center top-0 left-0 min-h-full w-full my-5`}>
+        <div className={`${displayStudentStatistics ? 'visible' : 'invisible'} absolute flex flex-col justify-center items-center top-0 left-0 min-h-full w-full my-5 z-20`}>
             <div className="bg-white border border-black min-w-[400px] min-h-[400px] p-2 rounded-lg">
                 <div className="flex justify-between items-center border-b-2">
                     <p className="font-light mr-4">Estudiante: <span className="font-semibold">{displayCurrentStudent.name}</span></p>
@@ -43,7 +43,7 @@ const StudentStatistics = () => {
                             )}
                         </div>
                     ) : (
-                        <div className="w-full h-full flex flex-col justify-center items-center">
+                        <div className="w-full h-full flex flex-col justify-center items-center mt-20">
                             <p className="text-xl">No hay fallas ni excusas</p>
                             <HiClipboardCheck className="mt-8 h-[5rem] w-[5rem]" />
                         </div>

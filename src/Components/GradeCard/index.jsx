@@ -7,15 +7,16 @@ const GradeCard = ({id, gradeName, teacher}) => {
     const { courses, 
             setCourses,
             setCurrentCourse,
+            setWantToDeleteCourse,
+            setCourseToDelete
         } = CoursesContext()
 
     const navigate = useNavigate()
 
     const deleteCourse = (event, courseId) => {
         event.stopPropagation()
-        const updatedCourses = courses.filter((course) => course.id !== courseId);
-
-        setCourses(updatedCourses.map((course, index) => ({...course, id: index.toString() })))
+        setCourseToDelete(findCourse(courseId))
+        setWantToDeleteCourse(true)
     }
 
     const findCourseClicked = (courseId) => {
@@ -31,6 +32,7 @@ const GradeCard = ({id, gradeName, teacher}) => {
         }
     }
 
+    //Find course just to show some info in the component
     const findCourse = (id) => {
         const courseFound = courses.find((course, index) => course.id === id)
         return courseFound
