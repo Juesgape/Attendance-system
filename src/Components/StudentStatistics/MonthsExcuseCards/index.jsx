@@ -28,7 +28,7 @@ const MonthsExcuseCards = ({student}) => {
                         Object.keys(student.excuses).map((month, index) => 
                             <div 
                                 key={index} 
-                                className="rounded-lg uppercase flex items-center justify-center w-[5rem] mb-2 mt-2 border border-black cursor-pointer bg-blue-400 text-white hover:text-black"
+                                className="rounded-lg uppercase flex items-center justify-center w-[4rem] mb-2 mt-2 border border-black cursor-pointer bg-blue-400 text-white hover:text-black"
                                 onClick={() => {
                                     updateExcusesString(month)
                                 }}
@@ -47,7 +47,7 @@ const MonthsExcuseCards = ({student}) => {
                         estudiante faltó con las siguientes excusas:
                         </p>
                         <div className="flex flex-col justify-center items-center mt-2">
-                            <div className="w-[350px] flex flex-wrap items-center justify-evenly">
+                            <div className="w-[350px] flex flex-wrap items-center gap-4 justify-center">
                                 {
                                     Object.entries(excuseFormonth).map(([date, excuse], index) => 
                                         <div key={index}>

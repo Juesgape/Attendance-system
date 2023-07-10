@@ -18,7 +18,10 @@ const ExcelDroper = () => {
             wantToEditList,
             setWantToEditList,
             wantToAddNewStudent, 
-            setWantToAddNewStudent
+            setWantToAddNewStudent,
+            displayStudentStatistics, 
+            wantToDeleteStudent,
+            wantToEditStudent,
         } = CoursesContext()
 
     //Helps us go back to the courses page
@@ -85,11 +88,26 @@ const ExcelDroper = () => {
                 totalAbsences: {
                     may:['3/5/2023','4/5/2023'],
                     jun:['3/6/2023','4/6/2023'],
+                    aug:['3/6/2023','4/6/2023'],
+                    sep:['3/6/2023','4/6/2023'],
+                    nov:['3/6/2023','4/6/2023'],
+                    dec:['3/6/2023','4/6/2023'],
+                    jan:['3/6/2023','4/6/2023'],
+                    feb:['3/6/2023','4/6/2023'],
+                    qqq:['3/6/2023','4/6/2023'],
+                    ppp:['3/6/2023','4/6/2023','4/6/2023','4/6/2023','4/6/2023','4/6/2023','4/6/2023','4/6/2023','4/6/2023','4/6/2023','4/6/2023',],
                 },
                 excuses: {  
                             apr:{'3/4/2023': 'Enfermedad','4/4/2023': 'Asuntos familiares'},
                             may:{'3/5/2023': 'Enfermedad','4/5/2023': 'Asuntos familiares'},
                             jun:{'3/6/2023': 'Enfermedad','4/6/2023': 'Asuntos familiares'},
+                            aug:{'3/6/2023': 'Enfermedad','4/6/2023': 'Asuntos familiares'},
+                            sep:{'3/6/2023': 'Enfermedad','4/6/2023': 'Asuntos familiares'},
+                            nov:{'3/6/2023': 'Enfermedad','4/6/2023': 'Asuntos familiares'},
+                            dec:{'3/6/2023': 'Enfermedad','4/6/2023': 'Asuntos familiares'},
+                            jan:{'3/6/2023': 'Enfermedad','4/6/2023': 'Asuntos familiares'},
+                            feb:{'3/6/2023': 'Enfermedad','4/6/2023': 'Asuntos familiares'},
+                            qqq:{'3/6/2023': 'Enfermedad','4/6/2023': 'Asuntos familiares', '5/6/2023': 'Enfermedad','6/6/2023': 'Enfermedad','7/6/2023': 'Enfermedad','8/6/2023': 'Enfermedad','9/6/2023': 'Enfermedad','10/6/2023': 'Enfermedad','11/6/2023': 'Enfermedad','12/6/2023': 'Enfermedad','13/6/2023': 'Enfermedad',},
                         }
             }
             //Adding newStudent to our useState
@@ -162,13 +180,14 @@ const ExcelDroper = () => {
 
                 :
 
-                <div className='h-[90vh] flex flex-col justify-center items-center'>
+                <div className={`h-[90vh] flex flex-col justify-center items-center`}>
                     <div className='h-[80vh] w-full flex justify-center'>
                         <div className='h-[100%] overflow-auto'>
                             <ListTables students={currentCourse.students}></ListTables>
                         </div>
                     </div>
-                    <div className='w-full mt-4 flex items-center justify-evenly'>
+                    <div className={`${displayStudentStatistics || wantToAddNewStudent || wantToDeleteStudent || wantToEditStudent ? 'blur-sm pointer-events-none' : 'blur-none'} 
+                                    w-full mt-4 flex items-center justify-evenly`}>
                         {
                             wantToEditList == false ? 
                                 <button 

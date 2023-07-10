@@ -46,16 +46,18 @@ const MonthsAbsenceCards = ({student}) => {
                             <span className="uppercase font-semibold">{currentMonth}</span> el
                         estudiante faltó los siguientes días:
                         </p>
-                        <div className="flex justify-evenly">
-                            {
-                                absencesForMonth.map((monthDay, index) => 
-                                    <div className="mt-4" key={index}>
-                                        <div className="text-center border border-black bg-gray-200 rounded-lg p-2">
-                                            <p className="font-bold">{monthDay}</p>
+                        <div className="flex flex-col justify-center items-center mt-2">
+                            <div className="w-[350px] flex flex-wrap items-center gap-4 justify-center">
+                                {
+                                    absencesForMonth.map((monthDay, index) => 
+                                        <div className="mt-4" key={index}>
+                                            <div className="text-center border border-black bg-gray-200 rounded-lg p-2">
+                                                <p className="font-bold">{monthDay}</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                )
-                            }
+                                    )
+                                }
+                            </div>
                         </div>
                     </div>
                 )}

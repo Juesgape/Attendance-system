@@ -11,28 +11,28 @@ const GradeCard = ({id, gradeName, teacher}) => {
 
     const navigate = useNavigate()
 
-    const deleteCourse = (courseId) => {
-        const updatedCourses = courses.filter((course, index) => index !== courseId);
+    const deleteCourse = (event, courseId) => {
+        event.stopPropagation()
+        const updatedCourses = courses.filter((course) => course.id !== courseId);
 
-        for(let i = 0; i < updatedCourses.length; i++) {
-            courses[i].id = i
-        }
-        setCourses(updatedCourses)
+        setCourses(updatedCourses.map((course, index) => ({...course, id: index.toString() })))
     }
 
     const findCourseClicked = (courseId) => {
         const options = { dateStyle: 'short', timeStyle: 'short' }
         const currentDateTime = new Date().toLocaleString(undefined, options)
-        //courseId is equivalent to the position of the course in the courses array
-        const course = courses.find((course, index) => index === courseId);
-        //Modified the lastModified attribute on course
-        course.lastModified = currentDateTime
-        setCurrentCourse(course);
-        navigate('/list')
+        //Finding the course by id
+        const course = findCourse(courseId)
+        if(course) {
+            //Modified the lastModified attribute on course
+            course.lastModified = currentDateTime
+            setCurrentCourse(course);
+            navigate('/list')
+        }
     }
 
     const findCourse = (id) => {
-        const courseFound = courses.find((course, index) => index === id)
+        const courseFound = courses.find((course, index) => course.id === id)
         return courseFound
     }
 
@@ -41,7 +41,7 @@ const GradeCard = ({id, gradeName, teacher}) => {
     return(
         <div 
             onClick={() => findCourseClicked(id)}
-            className="bg-gray-100 w-[500px] px-4 py-8 rounded-lg cursor-pointer border border-black">
+            className="bg-gray-100 w-[500px]  px-4 py-8 rounded-lg cursor-pointer border border-black">
 
             <div className="flex justify-between">
                 <div>
@@ -50,7 +50,7 @@ const GradeCard = ({id, gradeName, teacher}) => {
                 </div>
                 <div>
                     <HiTrash 
-                        onClick={() => deleteCourse(id)} 
+                        onClick={(event) => deleteCourse(event, id)} 
                         className='w-6 h-6 hover:text-red-600'
                     />
                 </div>
@@ -58,10 +58,10 @@ const GradeCard = ({id, gradeName, teacher}) => {
 
             <div className="flex justify-between mt-8">
                 <div>
-                    <p>Última modificación: <span className='font-light'>{findCourse(id).lastModified ? findCourse(id).lastModified : '00:00'}</span></p>
+                    <p>Última modificación: <span className='font-light'>{findCourse(id)?.lastModified ? findCourse(id)?.lastModified : '00:00'}</span></p>
                 </div>
                 <div>
-                    <p>Total estudiantes: <span className='font-light'>{findCourse(id).totalStudents ? findCourse(id).totalStudents : '0'}</span></p>
+                    <p>Total estudiantes: <span className='font-light'>{findCourse(id)?.totalStudents ? findCourse(id)?.totalStudents : '0'}</span></p>
                 </div>
             </div>
 

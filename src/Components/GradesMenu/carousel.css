@@ -1,0 +1,13 @@
+.carousel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.control-left-arrow {
+    cursor: pointer;
+}
+
+.control-right-arrow {
+    cursor: pointer;
+}

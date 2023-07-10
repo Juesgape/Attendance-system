@@ -29,6 +29,9 @@ const AddStudentWindow = () => {
             //Update the original course
             currentCourse.students = sortedCourseList
             currentCourse.totalStudents = currentCourse.students.length
+
+            //Clear input out
+            setNewStudent('')
         }
     }
 
