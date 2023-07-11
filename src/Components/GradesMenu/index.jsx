@@ -99,7 +99,7 @@ const GradesMenu = ({children}) => {
     
             <div className="w-full text-center">
               <button
-                className="bg-green-400 border text-white border-white p-3.5 rounded-xl font-bold hover:text-black"
+                className="bg-gray-200 hover:shadow-xl text-black p-3.5 rounded-xl font-bold hover:text-white border-black border"
                 onClick={() => setClickedAddCourseButton(!clickedAddCourseButton)}
               >
                 Añadir nuevo curso
@@ -165,7 +165,7 @@ const GradesMenu = ({children}) => {
     
               <div className="w-full mt-8 mb-4 flex justify-center">
                 <button
-                  className="bg-green-400 border border-black p-2 rounded-lg font-bold hover:text-white"
+                  className="bg-gray-200 border border-black p-2 rounded-lg font-bold hover:text-white"
                   onClick={() => {
                     handleNewCourseCreation(gradeName, mainTeacherName);
                   }}

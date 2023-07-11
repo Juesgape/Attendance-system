@@ -117,7 +117,7 @@ const Cell = ({student}) => {
             >
                 {cellContent}
             </td>
-            <td className="border w-[10rem] text-center border-slate-700">{student.absencesThisMonth}</td>
+            <td className={`${parseInt(student.absencesThisMonth) >= 6 ? 'bg-red-600 text-white' : ''} border w-[10rem] text-center border-slate-700`}>{student.absencesThisMonth}</td>
             <td className="w-[10rem] h-auto border text-center border-slate-700">
                 <input 
                     onChange={(event) => {

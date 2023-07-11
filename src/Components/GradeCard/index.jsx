@@ -11,6 +11,14 @@ const GradeCard = ({id, gradeName, teacher}) => {
             setCourseToDelete
         } = CoursesContext()
 
+    const colors = [
+        'bg-gradient-to-r from-[rgba(2,0,36,1)] via-[rgba(9,9,121,1)] to-[rgba(0,212,255,1)] text-white',
+        'bg-gradient-to-r from-yellow-400 via-red-500 to-pink-600 text-white',
+        'bg-gradient-to-r from-green-400 via-teal-500 to-blue-600 text-white',
+        'bg-gradient-to-r from-purple-400 via-indigo-500 to-blue-600 text-white',
+        'bg-gradient-to-r from-red-400 via-pink-500 to-purple-600 text-white'
+    ]
+
     const navigate = useNavigate()
 
     const deleteCourse = (event, courseId) => {
@@ -43,7 +51,7 @@ const GradeCard = ({id, gradeName, teacher}) => {
     return(
         <div 
             onClick={() => findCourseClicked(id)}
-            className="bg-gray-100 w-[500px]  px-4 py-8 rounded-lg cursor-pointer border border-black">
+            className={`${colors[Math.floor(Math.random() * colors.length)]} hover:shadow-3xl w-[500px] px-4 py-8 rounded-lg cursor-pointer border border-black`}>
 
             <div className="flex justify-between">
                 <div>

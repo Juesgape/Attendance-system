@@ -1,5 +1,4 @@
 import { Route, Routes } from "react-router-dom"
-import Layout from "../../Components/Layout/index.jsx"
 import Log from "../Signin/index.jsx"
 import Home from "../Home/index.jsx"
 import NotFound from "../NotFound/index.jsx"
@@ -14,15 +13,13 @@ const App = () => {
   return (
     <AuthContextProvider>
       <CoursesContextProvider>
-        <Layout>
-          <Routes>
-            <Route path="/" element={<Protected> <Home /> </Protected>}/>
-            <Route path="/signin" element={<Log />}/>
-            <Route path="/account" element={<Protected> <Account /> </Protected>}/>
-            <Route path="/list" element={<Protected> <List></List>  </Protected>}></Route>
-            <Route path="/*" element={<NotFound />}/>
-          </Routes>
-        </Layout>
+        <Routes>
+          <Route path="/signin" element={<Log />}/>
+          <Route path="/account" element={<Protected> <Account /> </Protected>}/>
+          <Route path="/" element={<Protected> <Home /> </Protected>}/>
+          <Route path="/list" element={<Protected> <List></List>  </Protected>}></Route>
+          <Route path="/*" element={<NotFound />}/>
+        </Routes>
       </CoursesContextProvider>
     </AuthContextProvider>
   )

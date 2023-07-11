@@ -7,6 +7,8 @@ import * as XLSX from 'xlsx'
 import { getTodaysDate } from '../../Utils'
 import { CoursesContext } from '../../context/CoursesContext'
 import { LoadingScreen } from '../LoadingScreen'
+import Layout from '../Layout'
+import './backgroundDropper.css'
 
 const ExcelDroper = () => {
     //This will be an object of course, I just initializated as a string for design pourposes
@@ -139,7 +141,7 @@ const ExcelDroper = () => {
                 readyToLoadContent ? (
                     <div 
                         onClick={() => navigate('/')}
-                        className='flex w-[9.2rem] cursor-pointer'>
+                        className='flex mt-8 ml-[2rem] mb- cursor-pointer'>
                         <HiChevronLeft className='h-6 w-6'></HiChevronLeft>
                         <p className='pl-4'>Volver a cursos</p>
                     </div>
@@ -152,33 +154,33 @@ const ExcelDroper = () => {
                 readyToLoadContent ? (
                         currentCourse.students.length < 1
                         ?
-                        <div className='h-[90vh] flex flex-col justify-center items-center'>
-                            <p>Nombre de la clase: {currentCourse.name}</p>
-                            <div 
-                                onDrop={handleDrop}
-                                onDragOver={handleDragOver}
-                                className='flex flex-col justify-center items-center border border-dotted border-black p-16 rounded-lg'
-                            >
-                                <HiCloudArrowUp className='w-10 h-10'/>
-                                <p className='text-lg pb-8'>Arrastra y suelta los archivos aquí</p>
-                                <input 
-                                    type="file" 
-                                    accept='.xlsx, .xls'
-                                    className='hidden'
-                                    id='fileInput'
-                                    onChange={handleFileSelect}
-                                />
-                                <label htmlFor="fileInput">
-                                    <button 
-                                        className='border border-black rounded-lg p-2 hover:bg-black hover:text-white'
-                                        onClick={handleButtonClick}
-                                        >
-                                            Seleccionar archivo
-                                    
-                                    </button>
-                                </label>
-                            </div>
-                        </div>
+                                <div className='h-[90vh] flex flex-col justify-center items-center m-4 pb-4'>
+                                    <p className='mb-5 font-semibold'>Nombre de la clase: {currentCourse.name}</p>
+                                    <div 
+                                        onDrop={handleDrop}
+                                        onDragOver={handleDragOver}
+                                        className='flex flex-col backgroundDropper justify-center items-center border border-dotted border-black max-w-[1000px] p-36 rounded-lg'
+                                    >
+                                        <HiCloudArrowUp className='w-10 h-10'/>
+                                        <p className='text-lg pb-8'>Arrastra y suelta los archivos aquí</p>
+                                        <input 
+                                            type="file" 
+                                            accept='.xlsx, .xls'
+                                            className='hidden'
+                                            id='fileInput'
+                                            onChange={handleFileSelect}
+                                        />
+                                        <label htmlFor="fileInput">
+                                            <button 
+                                                className='border border-black rounded-lg p-2 hover:bg-black hover:text-white'
+                                                onClick={handleButtonClick}
+                                                >
+                                                    Seleccionar archivo
+
+                                            </button>
+                                        </label>
+                                    </div>
+                                </div>
         
                         :
         
@@ -226,11 +228,14 @@ const ExcelDroper = () => {
                             </div>
                         </div>
                 ) : (
-                    <div className='h-full'>
-                        <div className='h-full flex justify-center items-center'>
-                            <LoadingScreen></LoadingScreen>
+                    <Layout>
+                        <div className='h-full'>
+                            <div className='h-full flex justify-center items-center'>
+                                <LoadingScreen></LoadingScreen>
+                            </div>
                         </div>
-                    </div>
+                    </Layout>
+                    
                 )
 
             }
