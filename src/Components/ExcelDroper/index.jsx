@@ -6,10 +6,12 @@ import { ListTables } from '../ListTables'
 import * as XLSX from 'xlsx'
 import { getTodaysDate } from '../../Utils'
 import { CoursesContext } from '../../context/CoursesContext'
+import { LoadingScreen } from '../LoadingScreen'
 
 const ExcelDroper = () => {
     //This will be an object of course, I just initializated as a string for design pourposes
     const [excelData, setExcelData] = useState('')
+    const [readyToLoadContent, setReadyToLoadContent] = useState(false)
     
     const { courses,
             setCourses,
@@ -26,6 +28,21 @@ const ExcelDroper = () => {
 
     //Helps us go back to the courses page
     const navigate = useNavigate()
+    
+    //This will prevent our application to crash
+    useEffect(() => {
+        //If the there is no course selected (current course), go back to the home page
+        if(Object.keys(currentCourse).length === 0) {
+            navigate('/')
+        }
+    }, [])
+
+    //If there is a currentCourse then our app is ready to load content
+    useEffect(() => {
+        if(Object.keys(currentCourse).length !== 0) {
+            setReadyToLoadContent(true)
+        }
+    }, [])
 
 
     const handleDrop = (event) => {
@@ -118,89 +135,104 @@ const ExcelDroper = () => {
 
     return(
         <div>
-            <div 
-            onClick={() => navigate('/')}
-            className='flex w-[9.2rem] cursor-pointer'>
-                <HiChevronLeft className='h-6 w-6'></HiChevronLeft>
-                <p className='pl-4'>Volver a cursos</p>
-            </div>
+            {
+                readyToLoadContent ? (
+                    <div 
+                        onClick={() => navigate('/')}
+                        className='flex w-[9.2rem] cursor-pointer'>
+                        <HiChevronLeft className='h-6 w-6'></HiChevronLeft>
+                        <p className='pl-4'>Volver a cursos</p>
+                    </div>
+                ) : (
+                    <div></div>
+                )
+            }
             
             {
-                currentCourse.students.length < 1
-                ?
-                <div className='h-[90vh] flex flex-col justify-center items-center'>
-                    <p>Nombre de la clase: {currentCourse.name}</p>
-                    <div 
-                        onDrop={handleDrop}
-                        onDragOver={handleDragOver}
-                        className='flex flex-col justify-center items-center border border-dotted border-black p-16 rounded-lg'
-                    >
-                        <HiCloudArrowUp className='w-10 h-10'/>
-                        <p className='text-lg pb-8'>Arrastra y suelta los archivos aquí</p>
-                        <input 
-                            type="file" 
-                            accept='.xlsx, .xls'
-                            className='hidden'
-                            id='fileInput'
-                            onChange={handleFileSelect}
-                        />
-                        <label htmlFor="fileInput">
-                            <button 
-                                className='border border-black rounded-lg p-2 hover:bg-black hover:text-white'
-                                onClick={handleButtonClick}
-                                >
-                                    Seleccionar archivo
-                            
-                            </button>
-                        </label>
-                    </div>
-                </div>
-
-                :
-
-                <div className={`h-[90vh] flex flex-col justify-center items-center`}>
-                    <div className='h-[80vh] w-full flex justify-center'>
-                        <div className='h-[100%] overflow-auto'>
-                            <ListTables students={currentCourse.students}></ListTables>
+                readyToLoadContent ? (
+                        currentCourse.students.length < 1
+                        ?
+                        <div className='h-[90vh] flex flex-col justify-center items-center'>
+                            <p>Nombre de la clase: {currentCourse.name}</p>
+                            <div 
+                                onDrop={handleDrop}
+                                onDragOver={handleDragOver}
+                                className='flex flex-col justify-center items-center border border-dotted border-black p-16 rounded-lg'
+                            >
+                                <HiCloudArrowUp className='w-10 h-10'/>
+                                <p className='text-lg pb-8'>Arrastra y suelta los archivos aquí</p>
+                                <input 
+                                    type="file" 
+                                    accept='.xlsx, .xls'
+                                    className='hidden'
+                                    id='fileInput'
+                                    onChange={handleFileSelect}
+                                />
+                                <label htmlFor="fileInput">
+                                    <button 
+                                        className='border border-black rounded-lg p-2 hover:bg-black hover:text-white'
+                                        onClick={handleButtonClick}
+                                        >
+                                            Seleccionar archivo
+                                    
+                                    </button>
+                                </label>
+                            </div>
+                        </div>
+        
+                        :
+        
+                        <div className={`h-[90vh] flex flex-col justify-center items-center`}>
+                            <div className='h-[80vh] w-full flex justify-center'>
+                                <div className='h-[100%] overflow-auto'>
+                                    <ListTables students={currentCourse.students}></ListTables>
+                                </div>
+                            </div>
+                            <div className={`${displayStudentStatistics || wantToAddNewStudent || wantToDeleteStudent || wantToEditStudent ? 'blur-sm pointer-events-none' : 'blur-none'} 
+                                            w-full mt-4 flex items-center justify-evenly`}>
+                                {
+                                    wantToEditList == false ? 
+                                        <button 
+                                            className='border flex items-center justify-center w-[8rem] border-black rounded-lg p-2 bg-black text-white hover:bg-white hover:text-black'
+                                            onClick={() => setWantToEditList(true)}
+                                        >
+                                            Editar Lista 
+                                            <HiPencil className="w-5 h-5 ml-1"/>
+                                        </button>
+                                    
+                                    :
+                                    
+                                    <div className='flex justify-evenly'>
+                                        <button 
+                                            className='border flex items-center justify-center w-[12rem] border-black rounded-lg p-2 bg-white text-black'
+                                            onClick={() => setWantToEditList(false)}
+                                        >
+                                            Dejar de editar lista
+                                            <HiOutlineX className="w-4 h-4 ml-1"/>
+                                        </button>
+                                        <div className='ml-10'>
+                                            <button 
+                                                className='border flex items-center justify-center w-[12rem] border-black rounded-lg p-2 bg-blue-400 text-white hover:text-black'
+                                                onClick={() => setWantToAddNewStudent(true)}
+                                            >
+                                                Añadir estudiante
+                                            </button>
+                                        </div>
+        
+                                    </div>
+        
+                                }
+                                <p>Fecha: {getTodaysDate()}</p>
+                            </div>
+                        </div>
+                ) : (
+                    <div className='h-full'>
+                        <div className='h-full flex justify-center items-center'>
+                            <LoadingScreen></LoadingScreen>
                         </div>
                     </div>
-                    <div className={`${displayStudentStatistics || wantToAddNewStudent || wantToDeleteStudent || wantToEditStudent ? 'blur-sm pointer-events-none' : 'blur-none'} 
-                                    w-full mt-4 flex items-center justify-evenly`}>
-                        {
-                            wantToEditList == false ? 
-                                <button 
-                                    className='border flex items-center justify-center w-[8rem] border-black rounded-lg p-2 bg-black text-white hover:bg-white hover:text-black'
-                                    onClick={() => setWantToEditList(true)}
-                                >
-                                    Editar Lista 
-                                    <HiPencil className="w-5 h-5 ml-1"/>
-                                </button>
-                            
-                            :
-                            
-                            <div className='flex justify-evenly'>
-                                <button 
-                                    className='border flex items-center justify-center w-[12rem] border-black rounded-lg p-2 bg-white text-black'
-                                    onClick={() => setWantToEditList(false)}
-                                >
-                                    Dejar de editar lista
-                                    <HiOutlineX className="w-4 h-4 ml-1"/>
-                                </button>
-                                <div className='ml-10'>
-                                    <button 
-                                        className='border flex items-center justify-center w-[12rem] border-black rounded-lg p-2 bg-blue-400 text-white hover:text-black'
-                                        onClick={() => setWantToAddNewStudent(true)}
-                                    >
-                                        Añadir estudiante
-                                    </button>
-                                </div>
+                )
 
-                            </div>
-
-                        }
-                        <p>Fecha: {getTodaysDate()}</p>
-                    </div>
-                </div>
             }
             
         </div>

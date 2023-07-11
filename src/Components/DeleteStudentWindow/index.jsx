@@ -5,7 +5,8 @@ const DeleteWindow = () => {
     const { wantToDeleteStudent,
             setWantToDeleteStudent,
             displayCurrentStudent,
-            currentCourse
+            currentCourse,
+            saveData
         } = CoursesContext()
 
     const removeStudentFromList = (student) => {
@@ -16,6 +17,8 @@ const DeleteWindow = () => {
         }
         currentCourse.students = updatedStudentsList
         currentCourse.totalStudents = currentCourse.students.length
+        //Save data to dataBase
+        saveData()
     }
 
     return (

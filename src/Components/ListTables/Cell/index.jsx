@@ -18,8 +18,8 @@ const Cell = ({student}) => {
             setDisplayCurrentStudent,
             wantToEditList,
             setWantToDeleteStudent,
-            wantToEditStudent,
-            setWantToEditStudent
+            setWantToEditStudent,
+            saveData
         } = CoursesContext()
 
     const [cellContent, setCellContent] = useState('');
@@ -54,6 +54,10 @@ const Cell = ({student}) => {
             setStudentExcuse(excuse, student)
         }
     },[excuse])
+
+    useEffect(() => {
+        saveData()
+    }, [cellContent, excuse])
 
     return (
         <>  

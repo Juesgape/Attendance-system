@@ -5,7 +5,7 @@ import {
     signOut,
     onAuthStateChanged
 } from 'firebase/auth'
-import auth from "../Pages/Firebase";
+import {auth} from "../Pages/Firebase";
 
 const AuthContext = createContext()
 

@@ -1,12 +1,16 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { collection, doc, setDoc, getDoc } from "firebase/firestore";
+import db from "../Pages/Firebase";
+import { UserAuth } from "./AuthContext";
 
 const CourseContext = createContext()
 
 const CoursesContextProvider = ({children}) => {
+    //User data
+    const { user } = UserAuth()
+
     //We'll store all of our courses here
     const [courses, setCourses] = useState([])
-    //this will put an id for every new course based on the length of the 'courses' variable
-    const [idCourses, setIdCourses] = useState(0)
     //This currentCourse will help us to navigate though the different student's list that we have
     const [currentCourse, setCurrentCourse] = useState({})
     //Display the student data when the teacher clicks on one
@@ -24,20 +28,36 @@ const CoursesContextProvider = ({children}) => {
     //Display deleting course widow
     const [wantToDeleteCourse, setWantToDeleteCourse] = useState(false)
     const [courseToDelete, setCourseToDelete] = useState({})
-    
+    //state that will help us save our data consistently
+    const [save, setSave] = useState(false)
 
-    //Check if courses exist to that id have the corresponding id
+    const saveData = () => {
+        setSave(!save)
+    }
+    
     useEffect(() => {
-        setIdCourses(courses.length)
-    },[])
+        if(courses.length > 0 && user) {
+            const saveDataInDb = async () => {
+                try {  
+                    const courseDocRef = doc(db, 'users', user.uid, 'courses', 'documentId')
+                    await setDoc(courseDocRef, { courses: [...courses] }, { merge: true })
+                    /* console.log('Courses were saved correctly'); */
+                } catch(err) {
+                    console.error('There was an error saving the courses', err)
+                    throw err
+                }
+            }
+            //Calling saveData Async function
+            saveDataInDb()
+        }
+    }, [courses, db, save])
+    
 
     return(
         <CourseContext.Provider
             value={{
                 courses,
                 setCourses,
-                idCourses,
-                setIdCourses,
                 currentCourse,
                 setCurrentCourse,
                 displayStudentStatistics,
@@ -55,7 +75,8 @@ const CoursesContextProvider = ({children}) => {
                 wantToDeleteCourse,
                 setWantToDeleteCourse,
                 courseToDelete,
-                setCourseToDelete
+                setCourseToDelete,
+                saveData
             }}
         >
             {children}

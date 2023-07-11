@@ -38,7 +38,7 @@ const GradeCard = ({id, gradeName, teacher}) => {
         return courseFound
     }
 
-    console.log(courses);
+    /* console.log(courses); */
 
     return(
         <div 
