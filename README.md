@@ -4,10 +4,6 @@ description: Tu plataforma para llevar el control de asistencia de tus estudante
 
 # 👋 Bienvenida a Asistencia
 
-{% hint style="info" %}
-**Acerca de:** Esta es una guía para los profesores que tengan dudas de cómo usar la plataforma.
-{% endhint %}
-
 ## Características generales
 
 Algunas de las funciones que podrás hacer son:
