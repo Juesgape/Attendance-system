@@ -4,6 +4,7 @@ import { DeleteWindow } from "../DeleteStudentWindow";
 import { ModifyStudentWindow } from "../ModifyStudentWindow";
 import { AddStudentWindow } from "../AddStudentWindow";
 import { CoursesContext } from "../../context/CoursesContext";
+import { GeneralReport } from "../GeneralReport";
 
 const ListTables = ({students}) => {
 
@@ -11,12 +12,13 @@ const ListTables = ({students}) => {
             wantToDeleteStudent,
             wantToEditStudent,
             wantToAddNewStudent,
+            seeGeneralReport
     } = CoursesContext()
 
     return(
         <div>
             <table className={
-                `${displayStudentStatistics || wantToAddNewStudent || wantToDeleteStudent || wantToEditStudent ? 'blur-sm' : 'blur-none'} 
+                `${displayStudentStatistics || wantToAddNewStudent || wantToDeleteStudent || wantToEditStudent || seeGeneralReport ? 'blur-sm' : 'blur-none'} 
                 border-collapse border border-slate-500`
                 }>
                 
@@ -43,6 +45,7 @@ const ListTables = ({students}) => {
             <DeleteWindow></DeleteWindow>
             <ModifyStudentWindow></ModifyStudentWindow>
             <AddStudentWindow></AddStudentWindow>
+            <GeneralReport></GeneralReport>
         </div>
     )
 }

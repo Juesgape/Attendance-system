@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { HiCloudArrowUp, HiChevronLeft } from 'react-icons/hi2'
-import { HiPencil, HiOutlineX } from 'react-icons/hi'
+import { HiPencil, HiOutlineX, HiClipboardList } from 'react-icons/hi'
 import { ListTables } from '../ListTables'
 import * as XLSX from 'xlsx'
 import { getTodaysDate } from '../../Utils'
@@ -26,6 +26,8 @@ const ExcelDroper = () => {
             displayStudentStatistics, 
             wantToDeleteStudent,
             wantToEditStudent,
+            seeGeneralReport,
+            setSeeGeneralReport
         } = CoursesContext()
 
     //Helps us go back to the courses page
@@ -190,17 +192,31 @@ const ExcelDroper = () => {
                                     <ListTables students={currentCourse.students}></ListTables>
                                 </div>
                             </div>
-                            <div className={`${displayStudentStatistics || wantToAddNewStudent || wantToDeleteStudent || wantToEditStudent ? 'blur-sm pointer-events-none' : 'blur-none'} 
+                            <div className={`${displayStudentStatistics || wantToAddNewStudent || wantToDeleteStudent || wantToEditStudent || seeGeneralReport ? 'blur-sm pointer-events-none' : 'blur-none'} 
                                             w-full mt-4 flex items-center justify-evenly`}>
                                 {
                                     wantToEditList == false ? 
-                                        <button 
-                                            className='border flex items-center justify-center w-[8rem] border-black rounded-lg p-2 bg-black text-white hover:bg-white hover:text-black'
-                                            onClick={() => setWantToEditList(true)}
-                                        >
-                                            Editar Lista 
-                                            <HiPencil className="w-5 h-5 ml-1"/>
-                                        </button>
+                                        <div className='flex justify-evenly'>
+                                            <button 
+                                                className='border flex items-center justify-center w-[8rem] border-black rounded-lg p-2 bg-black text-white hover:bg-white hover:text-black'
+                                                onClick={() => setWantToEditList(true)}
+                                            >
+                                                Editar Lista 
+                                                <HiPencil className="w-5 h-5 ml-1"/>
+                                            </button>
+                                            
+                                            <div className='ml-10'>
+                                                <button 
+                                                    className='border flex items-center justify-center w-[10rem] border-black rounded-lg p-2 bg-black text-white hover:bg-white hover:text-black'
+                                                    onClick={() => setSeeGeneralReport(true)}
+                                                >
+                                                    Reporte general 
+                                                    <HiClipboardList className="w-5 h-5 ml-1"/>
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                        
                                     
                                     :
                                     

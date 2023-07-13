@@ -76,7 +76,7 @@ const Cell = ({student}) => {
                 }}
             >
                 <div>
-                    <p className={`${wantToEditList == false ? 'group-hover:invisible' : 'group-hover:visible mr-16'} `}>{student.name}</p>
+                    <p className={`${wantToEditList == false ? 'group-hover:invisible mr-4' : 'group-hover:visible mr-16'} `}>{student.name}</p>
                     {
                         wantToEditList == false
                         ? 

@@ -28,6 +28,8 @@ const CoursesContextProvider = ({children}) => {
     //Display deleting course widow
     const [wantToDeleteCourse, setWantToDeleteCourse] = useState(false)
     const [courseToDelete, setCourseToDelete] = useState({})
+    //See general report
+    const [seeGeneralReport, setSeeGeneralReport] = useState(false)
     //state that will help us save our data consistently
     const [save, setSave] = useState(false)
 
@@ -76,7 +78,9 @@ const CoursesContextProvider = ({children}) => {
                 setWantToDeleteCourse,
                 courseToDelete,
                 setCourseToDelete,
-                saveData
+                saveData,
+                seeGeneralReport,
+                setSeeGeneralReport
             }}
         >
             {children}
