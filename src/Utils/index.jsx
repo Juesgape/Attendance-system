@@ -40,25 +40,14 @@ const getTodaysDate = () => {
 
 const isNewMonth = (student) => {
     const date = new Date()
-    const monthIn_DDMMYY = date.toLocaleDateString()
 
-    //WE HAVE TO DELETE THIS
-        const formatter = new Intl.DateTimeFormat('en-US', {month: 'short'})
-        const monthName = formatter.format(date).toLowerCase()
-        //If the student does not have an atttribute with the current month in the totalAbsences attribute,
-        //then reinitiate their absencesThisMonth for the month
-        if(!student.totalAbsences[monthName]) {
-            student.absencesThisMonth = 0;
-        }
-
-    //It's a new month
-    if(monthIn_DDMMYY[0] === 1) {
-        //Making sure we get the same date format
-        const formatter = new Intl.DateTimeFormat('en-US', {month: 'short'})
-        const monthName = formatter.format(date).toLowerCase()
-        //If the student does not have an atttribute with the current month in the totalAbsences attribute,
-        //then reinitiate their absencesThisMonth for the month
-        if(!student.totalAbsences[monthName]) {
+    const formatter = new Intl.DateTimeFormat('en-US', {month: 'short'})
+    const monthName = formatter.format(date).toLowerCase()
+    //If the student does not have an atttribute with the current month in the totalAbsences attribute,
+    //then reinitiate their absencesThisMonth for the month
+    if(!student.totalAbsences[monthName]) {
+        //If absencesThisMonth is different from 0 then change it
+        if(student.absencesThisMonth !== 0) {
             student.absencesThisMonth = 0;
         }
     }
