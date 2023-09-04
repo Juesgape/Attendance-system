@@ -4,6 +4,7 @@ import {
         checkTodaysAbsence,
         checkTodaysExcuse, 
         setStudentExcuse,
+        isNewMonth
     } from "../../../Utils";
 
 import { CoursesContext } from "../../../context/CoursesContext";
@@ -19,7 +20,8 @@ const Cell = ({student}) => {
             wantToEditList,
             setWantToDeleteStudent,
             setWantToEditStudent,
-            saveData
+            saveData,
+            showMessageAlert
         } = CoursesContext()
 
     const [cellContent, setCellContent] = useState('');
@@ -38,6 +40,9 @@ const Cell = ({student}) => {
         if(checkTodaysAbsence(student)) {
             handleCellClick()
         }
+        //Check if it's a new month and change the totalAbsences for the month to zero
+        isNewMonth(student)
+        
     }, []) 
 
     //set excuse in case the student already has an excuse for today
@@ -122,7 +127,7 @@ const Cell = ({student}) => {
                 <input 
                     onChange={(event) => {
                         if(cellContent !== 'X' && wantToEditList === false) {
-                            setExcuse(event.target.value)
+                            event.target.value.length <= 50 ? setExcuse(event.target.value) : showMessageAlert('El mensaje debe tener menos de 50 caracteres') 
                         }
                     }} 
                     className="text-center p-[1rem] h-[auto] focus:outline-none" 

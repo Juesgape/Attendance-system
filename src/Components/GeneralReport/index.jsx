@@ -13,6 +13,7 @@ const GeneralReport = () => {
     const [thereAreAbsences, setThereAreAbsences] = useState(false)
 
     const checkIfThereAreAbsences = (course, selectedMonth) => {
+        /* console.log(selectedMonth); */
         //This checks if there is at least one student who satisfice the condition
         //If there is, then the some() function will return true, if not, it will return false
         const isItTrue = course.students.some((student) =>

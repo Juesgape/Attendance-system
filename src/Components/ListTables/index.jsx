@@ -5,6 +5,7 @@ import { ModifyStudentWindow } from "../ModifyStudentWindow";
 import { AddStudentWindow } from "../AddStudentWindow";
 import { CoursesContext } from "../../context/CoursesContext";
 import { GeneralReport } from "../GeneralReport";
+import { CustomAlert } from "../CustomAlert/inde";
 
 const ListTables = ({students}) => {
 
@@ -12,7 +13,8 @@ const ListTables = ({students}) => {
             wantToDeleteStudent,
             wantToEditStudent,
             wantToAddNewStudent,
-            seeGeneralReport
+            seeGeneralReport,
+            seeCustomAlert
     } = CoursesContext()
 
     return(
@@ -46,6 +48,7 @@ const ListTables = ({students}) => {
             <ModifyStudentWindow></ModifyStudentWindow>
             <AddStudentWindow></AddStudentWindow>
             <GeneralReport></GeneralReport>
+            <CustomAlert></CustomAlert>
         </div>
     )
 }

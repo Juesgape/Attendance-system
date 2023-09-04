@@ -30,8 +30,23 @@ const CoursesContextProvider = ({children}) => {
     const [courseToDelete, setCourseToDelete] = useState({})
     //See general report
     const [seeGeneralReport, setSeeGeneralReport] = useState(false)
+    //See custom alert
+    const [seeCustomAlert, setSeeCustomAlert] = useState(false)
+    //Show the specific message that we wanna see
+    const [messageAlert, setMessageAlert] = useState('')
     //state that will help us save our data consistently
     const [save, setSave] = useState(false)
+
+    const showMessageAlert = (message) => {
+        //Set the message we want to display
+        setMessageAlert(message)
+        //Set true so that the message shows in the interface
+        setSeeCustomAlert(true)
+
+        setTimeout(() => {
+            setSeeCustomAlert(false)
+        }, 2000)
+    }
 
     const saveData = () => {
         setSave(!save)
@@ -80,7 +95,12 @@ const CoursesContextProvider = ({children}) => {
                 setCourseToDelete,
                 saveData,
                 seeGeneralReport,
-                setSeeGeneralReport
+                setSeeGeneralReport,
+                seeCustomAlert,
+                setSeeCustomAlert,
+                messageAlert,
+                setMessageAlert,
+                showMessageAlert
             }}
         >
             {children}
