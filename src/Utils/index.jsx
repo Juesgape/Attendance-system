@@ -2,9 +2,7 @@ const updateTotalAbsences = (student) => {
     //The totalAbsences is an attribute that is an object and will store the date as the name of the month (key) 
     //and this name of the month will store an object of the days of the month in which the stutend didn't attend class
     const date = new Date()
-    //Making sure we get the same date format
-    const formatter = new Intl.DateTimeFormat('en-US', {month: 'short'})
-    const monthName = formatter.format(date).toLowerCase()
+    const monthName = date.toLocaleDateString(undefined, {month: 'short'})
     const monthIn_DDMMYY = date.toLocaleDateString()
     //Creating new absence with month name attribute
     /* console.log(monthName, 'This is the month name') */
@@ -40,9 +38,8 @@ const getTodaysDate = () => {
 
 const isNewMonth = (student) => {
     const date = new Date()
+    const monthName = date.toLocaleDateString(undefined, {month: 'short'})
 
-    const formatter = new Intl.DateTimeFormat('en-US', {month: 'short'})
-    const monthName = formatter.format(date).toLowerCase()
     //If the student does not have an atttribute with the current month in the totalAbsences attribute,
     //then reinitiate their absencesThisMonth for the month
     if(!student.totalAbsences[monthName]) {
@@ -55,9 +52,7 @@ const isNewMonth = (student) => {
 
 const checkTodaysAbsence = (student) => {
     const date = new Date()
-    //Making sure we get the same date format
-    const formatter = new Intl.DateTimeFormat('en-US', {month: 'short'})
-    const monthName = formatter.format(date).toLowerCase()
+    const monthName = date.toLocaleDateString(undefined, {month: 'short'})
     const monthIn_DDMMYY = date.toLocaleDateString()
 
     if(!student.totalAbsences[monthName]) {
@@ -72,9 +67,7 @@ const checkTodaysAbsence = (student) => {
 //Check if the student already has an excuse for today
 const checkTodaysExcuse = (student) => {
     const date = new Date()
-    //Making sure we get the same date format
-    const formatter = new Intl.DateTimeFormat('en-US', {month: 'short'})
-    const monthName = formatter.format(date).toLowerCase()
+    const monthName = date.toLocaleDateString(undefined, {month: 'short'})
     const monthIn_DDMMYY = date.toLocaleDateString()
 
     if(!student.excuses[monthName]) {
@@ -88,9 +81,7 @@ const checkTodaysExcuse = (student) => {
 
 const setStudentExcuse = (excuse, student) => {
     const date = new Date()
-    //Making sure we get the same date format
-    const formatter = new Intl.DateTimeFormat('en-US', {month: 'short'})
-    const monthName = formatter.format(date).toLowerCase()
+    const monthName = date.toLocaleDateString(undefined, {month: 'short'})
     const monthIn_DDMMYY = date.toLocaleDateString()
 
     if(!student.excuses[monthName]) {

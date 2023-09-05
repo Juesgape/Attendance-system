@@ -53,18 +53,18 @@ const GeneralReport = () => {
                                 }}
                             >
                                 <option value="none" hidden>Mes</option>
-                                <option value="jan">Enero</option>
+                                <option value="ene">Enero</option>
                                 <option value="feb">Febrero</option>
                                 <option value="mar">Marzo</option>
-                                <option value="apr">Abril</option>
+                                <option value="abr">Abril</option>
                                 <option value="may">Mayo</option>
                                 <option value="jun">Junio</option>
                                 <option value="jul">Julio</option>
-                                <option value="aug">Agosto</option>
-                                <option value="sep">Septiembre</option>
+                                <option value="ago">Agosto</option>
+                                <option value="sept">Septiembre</option>
                                 <option value="oct">Octubre</option>
                                 <option value="nov">Noviembre</option>
-                                <option value="dec">Diciembre</option>
+                                <option value="dic">Diciembre</option>
                             </select>
                         </div>
                     </div>
