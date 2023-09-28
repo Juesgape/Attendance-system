@@ -71,8 +71,24 @@ function Home() {
         <Layout>
             <div className="h-full w-full flex flex-col items-center transition">
                 <div className="relative w-full flex justify-center items-center">
-                    <h1 className="text-4xl font-bold">Tus cursos</h1>
-                    <div className="absolute top-3 right-0 cursor-pointer hover:font-semibold hover:text-blue-600">
+
+                    <div 
+                    className="absolute flex justify-center items-center top- left-0 cursor-pointer hover:font-semibold hover:text-blue-600"
+                    onClick={() => {
+                        navigate('/account')
+                    }}
+                    >
+                        <h4>
+                            <button>Editar usuario</button>
+                        </h4>
+                        <img src={user.photoURL} alt="user-image" />
+                    </div>
+                    
+                    <div>
+                        <h1 className="text-4xl font-bold">Tus cursos</h1>
+                    </div>
+
+                    <div className="absolute top- right-0 cursor-pointer hover:font-semibold hover:text-blue-600">
                         <h4>
                             <button 
                                 onClick={() => {
