@@ -2,7 +2,7 @@
 description: Tu plataforma para llevar el control de asistencia de tus estudantes
 ---
 
-# 👋 Bienvenida a Asistencia
+# 👋 Bienvenida a Assistec
 
 ## Características generales
 
