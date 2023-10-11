@@ -25,6 +25,10 @@ const CoursesContextProvider = ({children}) => {
     const [wantToEditStudent, setWantToEditStudent] = useState(false)
     //Display AddStudent window
     const [wantToAddNewStudent, setWantToAddNewStudent] = useState(false)
+    //Display subjects settings window
+    const [wantToEditSubjects, setWantToEditSubjects] = useState(false)
+    //Display schedule settings
+    const [wantToEditSchedule, setWantToEditSchedule] = useState(false)
     //Display deleting course widow
     const [wantToDeleteCourse, setWantToDeleteCourse] = useState(false)
     const [courseToDelete, setCourseToDelete] = useState({})
@@ -89,6 +93,10 @@ const CoursesContextProvider = ({children}) => {
                 setWantToEditStudent,
                 wantToAddNewStudent, 
                 setWantToAddNewStudent,
+                wantToEditSubjects,
+                setWantToEditSubjects,
+                wantToEditSchedule,
+                setWantToEditSchedule,
                 wantToDeleteCourse,
                 setWantToDeleteCourse,
                 courseToDelete,

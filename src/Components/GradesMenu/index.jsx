@@ -47,6 +47,12 @@ const GradesMenu = ({children}) => {
       clearInputs();
     }
 
+    const handleKeyPress = (event) => {
+      if(event.key === 'Enter') {
+        handleNewCourseCreation(gradeName, mainTeacherName)
+      }
+    }
+
     const clearInputs = () => {
         setGradeName('')
         setMainTeacherName('')
@@ -132,6 +138,7 @@ const GradesMenu = ({children}) => {
                   id="gradeName"
                   onChange={(event) => setGradeName(event.target.value)}
                   value={gradeName}
+                  onKeyUp={handleKeyPress}
                   className="border p-2 border-black rounded-sm focus:outline-none focus:border-green-400 focus:border"
                   autoComplete="off"
                 />
@@ -149,6 +156,7 @@ const GradesMenu = ({children}) => {
                   value={mainTeacherName}
                   className="border p-2 border-black rounded-sm focus:outline-none focus:border-green-400 focus:border"
                   autoComplete=""
+                  onKeyUp={handleKeyPress}
                 />
               </div>
 
