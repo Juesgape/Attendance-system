@@ -81,23 +81,23 @@ const Cell = ({student}) => {
                 }}
             >
                 <div>
-                    <p className={`${wantToEditList == false ? 'group-hover:invisible mr-4' : 'group-hover:visible mr-16'} `}>{student.name}</p>
+                    <p className={`${wantToEditList == false ? 'group-hover:invisible mr-4' : 'group-hover:visible mr-16'} text-xs sm:text-base `}>{student.name}</p>
                     {
                         wantToEditList == false
                         ? 
-                        <div className="invisible top-4 font-bold absolute group-hover:visible">MOSTRAR ESTADÍSTICAS DEL ESTUDIANTE</div>
+                        <div className="invisible text-xs sm:text-sm top-4 font-bold absolute group-hover:visible text-center">VER ESTADÍSTICA</div>
                         :
                         <div className="top-5 right-2 font-bold absolute">
                             <div className="flex justify-end w-full">
                                 <HiPencil 
-                                    className="w-6 h-6 hover:text-white"
+                                    className="w-5 h-5 sm:w-6 sm:h-6 hover:text-white"
                                     onClick={() => {
                                         setDisplayCurrentStudent(student)
                                         setWantToEditStudent(true)
                                     }}
                                 />
                                 <HiTrash 
-                                    className="w-6 h-6 hover:text-white" 
+                                    className="w-5 h-5 sm:w-6 sm:h-6 hover:text-white" 
                                     onClick={() => {
                                         setDisplayCurrentStudent(student)
                                         setWantToDeleteStudent(true)
@@ -110,7 +110,7 @@ const Cell = ({student}) => {
             </td>
 
             <td
-            className='border w-[5rem] text-center border-slate-700 cursor-pointer hover:bg-red-400'
+            className='border text-center border-slate-700 cursor-pointer hover:bg-red-400'
             onClick={() => {
                 //If the user haven't typed an excuse, then we can put an absence mark
                 if(excuse === '' && wantToEditList === false) {
@@ -122,15 +122,15 @@ const Cell = ({student}) => {
             >
                 {cellContent}
             </td>
-            <td className={`${parseInt(student.absencesThisMonth) >= 6 ? 'bg-red-600 text-white' : ''} border w-[10rem] text-center border-slate-700`}>{student.absencesThisMonth}</td>
-            <td className="w-[10rem] h-auto border text-center border-slate-700">
+            <td className={`${parseInt(student.absencesThisMonth) >= 6 ? 'bg-red-600 text-white' : ''} border text-center border-slate-700`}>{student.absencesThisMonth}</td>
+            <td className="border text-center border-slate-700">
                 <input 
                     onChange={(event) => {
                         if(cellContent !== 'X' && wantToEditList === false) {
                             event.target.value.length <= 50 ? setExcuse(event.target.value) : showMessageAlert('El mensaje debe tener menos de 50 caracteres') 
                         }
                     }} 
-                    className="text-center p-[1rem] h-[auto] focus:outline-none" 
+                    className="text-center text-xs sm:text-base p-[0.8rem] sm:p-[1rem] focus:outline-none" 
                     type="text" 
                     placeholder="Escriba excusa"
                     value={excuse || showExcuseValueInput}/> 

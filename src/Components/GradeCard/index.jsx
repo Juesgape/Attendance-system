@@ -66,11 +66,11 @@ const GradeCard = ({id, gradeName, teacher}) => {
                 </div>
             </div>
 
-            <div className="flex justify-between mt-8">
-                <div>
+            <div className="flex items-center justify-between mt-8">
+                <div className='text-sm sm:text-base'>
                     <p>Última modificación: <span className='font-light'>{findCourse(id)?.lastModified ? findCourse(id)?.lastModified : '00:00'}</span></p>
                 </div>
-                <div>
+                <div className='text-sm sm:text-base'>
                     <p>Total estudiantes: <span className='font-light'>{findCourse(id)?.totalStudents ? findCourse(id)?.totalStudents : '0'}</span></p>
                 </div>
             </div>

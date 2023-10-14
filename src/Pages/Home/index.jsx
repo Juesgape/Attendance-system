@@ -73,23 +73,23 @@ function Home() {
                 <div className="relative w-full flex justify-center items-center">
 
                     <div 
-                    className="absolute flex justify-center items-center top- left-0 cursor-pointer hover:font-semibold hover:text-blue-600"
+                    className="absolute sm:flex  justify-center items-center left-0 cursor-pointer hover:font-semibold hover:text-blue-600"
                     onClick={() => {
                         navigate('/account')
                     }}
                     >
                         <h4>
-                            <button>Editar usuario</button>
+                            <button className="text-sm sm:text-lg">Editar usuario</button>
                         </h4>
-                        <img src={user.photoURL} alt="user-image" />
+                        <img className="hidden sm:flex" src={user.photoURL} alt="" />
                     </div>
                     
                     <div>
-                        <h1 className="text-4xl font-bold">Tus cursos</h1>
+                        <h1 className="text-xl sm:text-4xl font-bold">Tus cursos</h1>
                     </div>
 
                     <div className="absolute top- right-0 cursor-pointer hover:font-semibold hover:text-blue-600">
-                        <h4>
+                        <h4 className="text-sm sm:text-lg">
                             <button 
                                 onClick={() => {
                                     handleGoogleSignOut()

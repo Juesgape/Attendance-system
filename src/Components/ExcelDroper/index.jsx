@@ -145,7 +145,7 @@ const ExcelDroper = () => {
                         onClick={() => navigate('/')}
                         className='flex mt-8 ml-[2rem] mb- cursor-pointer'>
                         <HiChevronLeft className='h-6 w-6'></HiChevronLeft>
-                        <p className='pl-4'>Volver a cursos</p>
+                        <p className='pl-4 pb-4'>Volver a cursos</p>
                     </div>
                 ) : (
                     <div></div>
@@ -164,7 +164,7 @@ const ExcelDroper = () => {
                                         className='flex flex-col backgroundDropper justify-center items-center border border-dotted border-black max-w-[1000px] p-36 rounded-lg'
                                     >
                                         <HiCloudArrowUp className='w-10 h-10'/>
-                                        <p className='text-lg pb-8'>Arrastra y suelta los archivos aquí</p>
+                                        <p className='text-[20px] sm:text-lg pb-8'>Arrastra y suelta los archivos aquí</p>
                                         <input 
                                             type="file" 
                                             accept='.xlsx, .xls'
@@ -193,12 +193,12 @@ const ExcelDroper = () => {
                                 </div>
                             </div>
                             <div className={`${displayStudentStatistics || wantToAddNewStudent || wantToDeleteStudent || wantToEditStudent || seeGeneralReport ? 'blur-sm pointer-events-none' : 'blur-none'} 
-                                            w-full mt-4 flex items-center justify-evenly`}>
+                                            w-full mt-4 sm:flex items-center justify-evenly`}>
                                 {
                                     wantToEditList == false ? 
                                         <div className='flex justify-evenly'>
                                             <button 
-                                                className='border flex items-center justify-center w-[8rem] border-black rounded-lg p-2 bg-black text-white hover:bg-white hover:text-black'
+                                                className='border flex items-center justify-center sm:w-[10rem] text-sm border-black rounded-lg p-2 bg-black text-white hover:bg-white hover:text-black'
                                                 onClick={() => setWantToEditList(true)}
                                             >
                                                 Editar Lista 
@@ -207,7 +207,7 @@ const ExcelDroper = () => {
                                             
                                             <div className='ml-10'>
                                                 <button 
-                                                    className='border flex items-center justify-center w-[10rem] border-black rounded-lg p-2 bg-black text-white hover:bg-white hover:text-black'
+                                                    className='border flex items-center justify-center sm:w-[10rem] text-sm sm:text-base border-black rounded-lg p-2 bg-black text-white hover:bg-white hover:text-black'
                                                     onClick={() => setSeeGeneralReport(true)}
                                                 >
                                                     Reporte general 
@@ -222,7 +222,7 @@ const ExcelDroper = () => {
                                     
                                     <div className='flex justify-evenly'>
                                         <button 
-                                            className='border flex items-center justify-center w-[12rem] border-black rounded-lg p-2 bg-white text-black'
+                                            className='border flex items-center justify-center sm:w-[12rem] text-sm sm:text-base border-black rounded-lg p-2 bg-white text-black'
                                             onClick={() => setWantToEditList(false)}
                                         >
                                             Dejar de editar lista
@@ -230,7 +230,7 @@ const ExcelDroper = () => {
                                         </button>
                                         <div className='ml-10'>
                                             <button 
-                                                className='border flex items-center justify-center w-[12rem] border-black rounded-lg p-2 bg-blue-400 text-white hover:text-black'
+                                                className='border flex items-center justify-center sm:w-[12rem] text-sm sm:text-base border-black rounded-lg p-2 bg-blue-400 text-white hover:text-black'
                                                 onClick={() => setWantToAddNewStudent(true)}
                                             >
                                                 Añadir estudiante
@@ -240,7 +240,7 @@ const ExcelDroper = () => {
                                     </div>
         
                                 }
-                                <p>Fecha: {getTodaysDate()}</p>
+                                <p className='text-center text-sm sm:text-base mt-4'>Fecha: {getTodaysDate()}</p>
                             </div>
                         </div>
                 ) : (

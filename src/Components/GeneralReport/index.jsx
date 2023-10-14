@@ -32,15 +32,15 @@ const GeneralReport = () => {
             <div className="bg-white border border-black w-[95%] h-[95vh] p-2 rounded-lg">
                 <div className="pt-2 h-full">
                     <div className="relative flex justify-center items-center border-b-2">
-                        <p className="font-light text-2xl mr-4 mb-4"><span className="font-semibold">REPORTE GENERAL</span></p>
+                        <p className="font-light text-xl sm:text-2xl mr-4 mb-4"><span className="font-semibold">REPORTE GENERAL</span></p>
                         
-                        <div className="absolute left-0 bottom-4 w-[7rem] h-[2rem] bg-red-400 rounded-lg flex items-center justify-center text-white hover:text-black">
+                        <div className="absolute left-0 bottom-4 sm:w-[7rem] h-[2rem] bg-red-400 rounded-lg flex items-center justify-center text-white hover:text-black">
                             <button onClick={() => setSeeGeneralReport(false)} className="w-full p-4">Salir</button>
                         </div>
                     </div>
 
                     <div className="mt-2 flex items-center justify-between">
-                        <h3 className="text-xl">Curso: <span className="font-semibold text-lg">{currentCourse.name}</span></h3>
+                        <h3 className="sm:text-xl pr-8">Curso: <span className="font-semibold sm:text-lg">{currentCourse.name}</span></h3>
                         <div>
                             <label  className="text-xl font-semibold" htmlFor="selectMonth">Selecciona el mes</label>
 

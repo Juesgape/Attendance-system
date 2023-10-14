@@ -36,12 +36,12 @@ const ModifyStudentWindow = () => {
 
     return(
         <div className={`${wantToEditStudent ? 'visible' : 'invisible'} absolute flex flex-col justify-center items-center top-0 left-0 h-full w-full`}>
-            <div className="bg-white border border-black min-w-[400px] min-h-[200px] p-2 rounded-lg">
+            <div className="bg-white border border-black w-[350px] sm:min-w-[500px] min-h-[200px] p-2 rounded-lg">
                 <div className="pt-2 h-full">
                     <div className="flex justify-center items-center border-b-2">
                         <p className="font-light text-xl mr-4 mb-4"><span className="font-semibold">Editar estudiante</span></p>
                     </div>
-                        <div className="w-full h-full">
+                        <div className="w-full h-full text-center">
                             <div className="flex pt-4">
                                 <p>El nombre original del estudiante es: <span className="font-bold">{displayCurrentStudent.name}</span></p>
                             </div>

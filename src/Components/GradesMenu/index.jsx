@@ -59,12 +59,12 @@ const GradesMenu = ({children}) => {
     }
 
     return (
-        <div className="relative mt-[8rem] w-[100%] m-auto">
+        <div className="relative w-[100%] m-auto">
           <div className={`${clickedAddCourseButton || wantToDeleteCourse ? 'blur-sm pointer-events-none' : 'blur-none'}`}>
             {children.length > 0 ? (
               <div className="mb-16">
                 <Carousel
-                  showArrows={true}
+                  showArrows={window.innerWidth > 700 ? true : false}
                   showStatus={false}
                   showThumbs={false}
                   centerMode={false}
@@ -73,14 +73,14 @@ const GradesMenu = ({children}) => {
                   renderArrowPrev={(onClickHandler, hasPrev, label) =>
                     hasPrev && (
                       <div className="carousel" onClick={onClickHandler} title={label}>
-                        <HiChevronDoubleLeft className="h-14 w-14 hover:text-blue-400 cursor-pointer"/>
+                        <HiChevronDoubleLeft className="h-10 w-10 sm:h-14 sm:w-14 hover:text-blue-400 cursor-pointer"/>
                       </div>
                     )
                   }
                   renderArrowNext={(onClickHandler, hasNext, label) =>
                     hasNext && (
                       <div className="carousel" onClick={onClickHandler} title={label}>
-                        <HiChevronDoubleRight className="h-14 w-14 hover:text-blue-400 cursor-pointer"/>
+                        <HiChevronDoubleRight className="h-10 w-10 sm:h-14 sm:w-14 hover:text-blue-400 cursor-pointer"/>
                       </div>
                     )
                   }

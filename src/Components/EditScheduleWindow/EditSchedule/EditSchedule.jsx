@@ -12,19 +12,19 @@ const EditSchedule = (props) => {
 
     return(
         <div className="absolute w-[95%] h-[95vh] bg-white border-black border p-2 rounded-lg">
-            <div className="w-[7rem] h-[2rem] bg-red-400 rounded-lg flex items-center justify-center text-white hover:text-black">
+            <div className="w-[7rem] h-[2rem] bg-red-400 rounded-lg flex items-center justify-center text-white hover:text-black mb-8">
                 <button onClick={() => props.setWantToEdit(!props.wantToEdit)} className="w-full p-4">Salir</button>
             </div>
 
             <div className="flex justify-around">
                 
                 <div className="grid justify-center">
-                    <label  className="text-xl font-semibold" htmlFor="selectMonth">Selecciona el día</label>
+                    <label  className="sm:text-xl text-center text-sm font-semibold" htmlFor="selectMonth">Selecciona el día</label>
                     <select 
                         name="day" 
                         id="selectDay"
                         onChange={(opt) => setSelectedDay(opt.target.value)}
-                        className="m-4 text-lg h-[2.5rem] w-[9rem] border border-black rounded-[4px] focus:outline-none text-center"
+                        className="m-4 text-sm sm:text-lg h-[2.5rem] sm:w-[9rem] border border-black rounded-[4px] focus:outline-none text-center"
                     >
 
                         <option value="none" hidden>Día</option>
@@ -40,11 +40,12 @@ const EditSchedule = (props) => {
                 </div>
 
                 <div className="grid justify-center">
-                    <label  className="text-xl font-semibold" htmlFor="selectSubject">Selecciona asignatura</label>
+                    <label  className="sm:text-xl text-sm text-center font-semibold" htmlFor="selectSubject">Selecciona asignatura</label>
                     <select 
                         name="subject" 
                         id="selectSubject"
-                        className="m-4 text-lg h-[2.5rem] w-[9rem] border border-black rounded-[4px] focus:outline-none text-center"
+                        onChange={(opt) => setSelectedSubject(opt.target.value)}
+                        className="m-4 text-sm sm:text-lg h-[2.5rem] sm:w-[9rem] border border-black rounded-[4px] focus:outline-none text-center"
                     >
                         <option value="none" hidden>Asignatura</option>
                         {
@@ -62,17 +63,18 @@ const EditSchedule = (props) => {
                 </div>
 
                 <div className="grid justify-center">
-                    <label  className="text-xl font-semibold" htmlFor="selectSubject">Selecciona curso</label>
+                    <label  className="sm:text-xl text-center text-sm font-semibold" htmlFor="selectSubject">Selecciona curso</label>
                     <select 
                         name="subject" 
                         id="selectSubject"
-                        className="m-4 text-lg h-[2.5rem] w-[9rem] border border-black rounded-[4px] focus:outline-none text-center"
+                        onChange={(opt) => setSelectedCourse(opt.target.value)}
+                        className="m-4 text-sm sm:text-lg h-[2.5rem] sm:w-[9rem] border border-black rounded-[4px] focus:outline-none text-center"
                     >
                         <option value="none" hidden>Curso</option>
                         {
                             courses ? (
                                 courses.map((course) => {
-                                    return <option value={course}>{course.name}</option>
+                                    return <option value={course.id}>{course.name}</option>
                                 })
                             ) : (
                                 ''
@@ -88,7 +90,7 @@ const EditSchedule = (props) => {
             <div>
                 {
                     selectedDay !== '' ? (
-                        <p><span>{selectedDay}</span> <span> {user.subjects}</span></p>
+                        <p>Quieres dar la asignatura <span> {selectedSubject} </span> El día <span> {selectedDay} </span> al curso {selectedCourse} </p>
                         
                     ) : (
                         <p>Sin asignaturas para este día</p>
