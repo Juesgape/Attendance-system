@@ -1,6 +1,6 @@
 # Table of contents
 
-* [👋 Bienvenida a Asistencia](README.md)
+* [👋 Bienvenida a Assistec](README.md)
 
 ## Funciones generales
 
