@@ -10,6 +10,7 @@ const GeneralReport = () => {
         } = CoursesContext()
 
     const [selectedMonth, setSelectedMonth] = useState('')
+    const [selectedSubject, setSelectedSubject] = useState('')
     const [thereAreAbsences, setThereAreAbsences] = useState(false)
 
     const checkIfThereAreAbsences = (course, selectedMonth) => {
@@ -65,6 +66,37 @@ const GeneralReport = () => {
                                 <option value="oct">Octubre</option>
                                 <option value="nov">Noviembre</option>
                                 <option value="dic">Diciembre</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label  className="text-xl font-semibold" htmlFor="selectMonth">Selecciona la asignatura</label>
+
+                            <select 
+                                name="subject" 
+                                id="selectedSubject"
+                                className="m-4 text-lg h-[2.5rem] w-[9rem] border border-black rounded-[4px] focus:outline-none"
+                                onChange={(event) => {
+                                    setSelectedSubject(event.target.value)
+                                }}
+                            >
+                                <option value="none" hidden>Materia</option>
+
+                                {
+                                    currentCourse?.subjects?.length > 0 ? (
+                                        currentCourse.subjects.map((subject, index) =>
+                                            <option 
+                                                key={index}
+                                                value={subject}
+                                            >
+                                                    {subject}
+                                            </option>
+                                        )
+                                    ) : (
+                                        <option>Yes</option>
+                                    )
+                                }
+                                
                             </select>
                         </div>
                     </div>

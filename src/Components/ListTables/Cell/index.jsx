@@ -21,7 +21,8 @@ const Cell = ({student}) => {
             setWantToDeleteStudent,
             setWantToEditStudent,
             saveData,
-            showMessageAlert
+            showMessageAlert,
+            courses
         } = CoursesContext()
 
     const [cellContent, setCellContent] = useState('');
@@ -116,7 +117,7 @@ const Cell = ({student}) => {
                 if(excuse === '' && wantToEditList === false) {
                     handleCellClick()
                     //This will control each student's absences by adding and deletting them
-                    updateTotalAbsences(student)                
+                    updateTotalAbsences(student, courses)               
                 }
             }}
             >

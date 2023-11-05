@@ -6,7 +6,7 @@ import { CoursesContext } from "../../context/CoursesContext"
 const TeacherSubjectsWindow = () => {
     const { user } = UserAuth()
 
-    const {wantToEditSubjects, setWantToEditSubjects} = CoursesContext()
+    const {wantToEditSubjects, setWantToEditSubjects, courses, setCourses} = CoursesContext()
 
     const [newSubject, setNewSubject] = useState('')
     const [totalSubjects, setTotalSubjects] = useState(null)
@@ -17,21 +17,44 @@ const TeacherSubjectsWindow = () => {
             return
         }
 
-        if(!user.subjects) {
-            user.subjects = [newSubject.toUpperCase()]
-            setNewSubject('')
-            setTotalSubjects(user.subjects)
-            return
-        }
+        const newCourses = [...courses]
 
-        user.subjects.push(newSubject.toUpperCase())
-        setNewSubject('')
-        setTotalSubjects(user.subjects)
+        newCourses.forEach((course) => {
+            if(!course["subjects"]) {
+                course["subjects"] = [newSubject.toUpperCase()]
+            } else {
+                if(!course["subjects"].includes(newSubject.toUpperCase())) {
+                    course["subjects"].push(newSubject.toUpperCase())
+                    setNewSubject('')
+                }
+            }
+        })
+
+        setCourses(newCourses)
     }
 
     const deleteSubject = (index) => {
-        const newTotalSubjects = user.subjects.splice(index, 1)
-        setTotalSubjects(newTotalSubjects)
+
+        const newCourses = [...courses]
+        let subjectToDelete = newCourses[0].subjects[index]
+        
+        //---------- Logic for deleting the subject from the "subjects" attribute on each course
+        newCourses.forEach((course) => {
+            course["subjects"].splice(index, 1)
+        })
+
+        //---------- Logic for deleting the subject from the "subjectsDay" attribute on each course
+
+        for (let i = 0; i < newCourses.length; i++) {
+            for (let day = 0; day < 5; day++) {
+                newCourses[i].subjectsDay[day] = newCourses[i].subjectsDay[day].filter((subjectDay) => {
+                    return subjectDay.subject !== subjectToDelete;
+                });
+            }
+        }
+
+        //Update courses
+        setCourses(newCourses)
     }
 
     const handleKeyPress = (event) => {
@@ -99,8 +122,8 @@ const TeacherSubjectsWindow = () => {
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
                             {
-                                user?.subjects?.length > 0 ? (
-                                    user.subjects.map((subject, index) => {
+                                courses.length > 0 ? (
+                                    courses[0]["subjects"].map((subject, index) => {
                                         return(
                                             <div key={index} className="flex relative justify-center items-center border-4 border-blue-400 p-4 overflow-auto cursor-pointer hover:bg-blue-200">
                                                 <div 
