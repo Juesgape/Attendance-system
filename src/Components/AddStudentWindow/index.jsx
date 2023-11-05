@@ -1,12 +1,22 @@
 import { useState } from "react"
 import { CoursesContext } from "../../context/CoursesContext"
 import { sortStudentsListByName } from "../../Utils"
+import { HiOutlineMicrophone } from "react-icons/hi"
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
+
 
 const AddStudentWindow = () => {
     const { wantToAddNewStudent, 
             setWantToAddNewStudent,
             currentCourse
         } = CoursesContext()
+
+    const {
+        transcript,
+        listening,
+        resetTranscript,
+        browserSupportsSpeechRecognition
+    } = useSpeechRecognition();
 
     const [newStudent, setNewStudent] = useState('')
 
@@ -54,14 +64,22 @@ const AddStudentWindow = () => {
                                     <p className="">Escribe el nombre del estudiante siguiendo el formato</p>
                                     <span className="font-bold">APELLIDO NOMBRE</span>
                                 </label>
-                                <input 
-                                    id="newStudentName"
-                                    type="text"
-                                    placeholder="Nombre del estudiante..."
-                                    className="border border-black rounded-lg w-[16rem] p-2"    
-                                    onChange={(event) => setNewStudent(event.target.value)}
-                                    value={newStudent}
-                                />
+
+                                <div className="relative">
+                                    <input 
+                                        id="newStudentName"
+                                        type="text"
+                                        placeholder="Nombre del estudiante..."
+                                        className="border border-black rounded-lg w-[16rem] p-2 pr-10 "    
+                                        onChange={(event) => setNewStudent(event.target.value)}
+                                        value={newStudent}
+                                    />
+
+                                    <div className="absolute top-2 right-2 cursor-pointer">
+                                        <HiOutlineMicrophone className="w-6 h-6"/>
+                                    </div>
+                                </div>
+
                             </div>
 
 

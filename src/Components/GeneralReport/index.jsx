@@ -12,6 +12,7 @@ const GeneralReport = () => {
     const [selectedMonth, setSelectedMonth] = useState('')
     const [selectedSubject, setSelectedSubject] = useState('')
     const [thereAreAbsences, setThereAreAbsences] = useState(false)
+    const [thereAreAbsencesInSubject, setThereAreAbsencesInSubject] = useState(false)
 
     const checkIfThereAreAbsences = (course, selectedMonth) => {
         /* console.log(selectedMonth); */
@@ -24,9 +25,21 @@ const GeneralReport = () => {
         setThereAreAbsences(isItTrue)
     };
 
+    const checkIfThereAreAbsencesInSubject = (() => {
+        const isItTrue = currentCourse.students.some((student) => {
+            return student?.absences?.[selectedSubject]?.[selectedMonth]
+        })
+
+        setThereAreAbsencesInSubject(isItTrue)
+    })
+
     useEffect(() => {
         checkIfThereAreAbsences(currentCourse, selectedMonth)
     }, [selectedMonth])
+
+    useEffect(() => {
+        checkIfThereAreAbsencesInSubject()
+    }, [selectedSubject])
 
     return(
         <div className={`${seeGeneralReport ? 'visible' : 'invisible'} absolute flex flex-col justify-center z-10 items-center top-0 left-0 h-full w-full`}>
@@ -41,14 +54,14 @@ const GeneralReport = () => {
                     </div>
 
                     <div className="mt-2 flex items-center justify-between">
-                        <h3 className="sm:text-xl pr-8">Curso: <span className="font-semibold sm:text-lg">{currentCourse.name}</span></h3>
-                        <div>
-                            <label  className="text-xl font-semibold" htmlFor="selectMonth">Selecciona el mes</label>
+                        <h3 className="text-lg lg:text-lg  pr-8">Curso: <span className="font-semibold lg:text-lg">{currentCourse.name}</span></h3>
+                        <div className="text-center">
+                            <label  className="text-sm sm:text-xl font-semibold" htmlFor="selectMonth">Selecciona el mes</label>
 
                             <select 
                                 name="month" 
                                 id="selectMonth"
-                                className="m-4 text-lg h-[2.5rem] w-[9rem] border border-black rounded-[4px] focus:outline-none"
+                                className="m-4 text-lg w-[6rem] h-[2.5rem] sm:w-[9rem] border border-black rounded-[4px] focus:outline-none"
                                 onChange={(event) => {
                                     setSelectedMonth(event.target.value)
                                 }}
@@ -69,18 +82,19 @@ const GeneralReport = () => {
                             </select>
                         </div>
 
-                        <div>
-                            <label  className="text-xl font-semibold" htmlFor="selectMonth">Selecciona la asignatura</label>
+                        <div className="text-center">
+                            <label  className="text-sm sm:text-xl font-semibold" htmlFor="selectMonth">Selecciona la asignatura</label>
 
                             <select 
                                 name="subject" 
                                 id="selectedSubject"
-                                className="m-4 text-lg h-[2.5rem] w-[9rem] border border-black rounded-[4px] focus:outline-none"
+                                className="m-4 text-lg w-[7rem] h-[2.5rem] sm:w-[9rem] border border-black rounded-[4px] focus:outline-none"
                                 onChange={(event) => {
                                     setSelectedSubject(event.target.value)
                                 }}
                             >
                                 <option value="none" hidden>Materia</option>
+                                <option value="">Ninguna</option>
 
                                 {
                                     currentCourse?.subjects?.length > 0 ? (
@@ -110,7 +124,7 @@ const GeneralReport = () => {
                                 </div>
                             </div>
                         ) : (
-                            <div className="max-h-[450px] overflow-y-auto">
+                            <div className="max-h-[400px] mt-4 overflow-y-auto">
                                 <div className="w-full flex justify-center">
                                     <h3 className="text-xl">Fallas del mes de <span className="font-bold text-blue-400">{selectedMonth.toUpperCase()}</span></h3>
                                 </div>
@@ -118,8 +132,27 @@ const GeneralReport = () => {
                                 <div className="mx-auto flex justify-center">
 
                                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+
                                         {
-                                            thereAreAbsences ? (
+                                            selectedSubject.length > 1 && thereAreAbsencesInSubject == true ? (
+                                                currentCourse.students.map((student, index) => {
+                                                    if(student?.absences?.[selectedSubject]?.[selectedMonth]) {
+                                                        return (
+                                                            <div key={index} className="relative flex items-center border-4 border-red-400 p-4 overflow-auto cursor-pointer hover:bg-red-200">
+                                                                <HiUser className="w-8 h-8"/>
+                                                                <p>{student.name}</p>
+                                                                <p className="font-bold">: {student?.absences?.[selectedSubject]?.[selectedMonth].length}</p>
+                                                            </div>
+                                                        )
+                                                }})
+
+                                            ) : (
+                                                ''
+                                            )
+                                        }
+
+                                        {
+                                            thereAreAbsences == true && selectedSubject.length === 0 ? (
                                                 
                                                 currentCourse.students.map((student, index) => {
                                                     if(Object.keys(student.totalAbsences).includes(selectedMonth)) {
@@ -133,11 +166,22 @@ const GeneralReport = () => {
                                                     }}
                                                 )
                                             ) : (
-                                                <div className="w-full flex flex-col justify-center items-center col-start-2 pt-8">
-                                                    <HiCheckCircle className="w-[20rem] h-[20rem]"/>
-                                                    <p className="font-light">No hay fallas para este mes</p>
-                                                </div>
+                                                
+                                                ''
                                             )}
+
+                                            {
+                                                selectedMonth.length > 1 && thereAreAbsences && selectedSubject.length > 1 && !thereAreAbsencesInSubject || selectedMonth.length > 1 && !thereAreAbsences  ?   (
+                                                    <div className="w-full flex flex-col justify-center items-center col-start-2">
+                                                        <HiCheckCircle className="w-[20rem] h-[20rem]"/>
+                                                        <p className="font-light">No hay fallas para este mes</p>
+                                                    </div>
+                                                ) : (
+                                                    ''
+                                                )
+                                                
+                                            }
+
                                     </div>
                                 </div>
                             

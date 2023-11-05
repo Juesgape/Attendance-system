@@ -10,8 +10,48 @@ import {
 import { CoursesContext } from "../../../context/CoursesContext";
 import { HiPencil, HiTrash } from "react-icons/hi";
 
-//Separated cell component so that each X cell is differento for absences
+const absenceForSubject = (student, currentCourse) => {
+    if(!currentCourse.subjectsDay) {
+        return //Course does not have a schedule
+    }
 
+    const date = new Date()
+    const day = date.getDay()
+    const monthName = date.toLocaleDateString(undefined, {month: 'short'})
+    const monthIn_DDMMYY = date.toLocaleDateString()
+
+    currentCourse?.subjectsDay[day].forEach((subjectObj) => {
+        if(subjectObj.subject && subjectObj.allCourses.includes(currentCourse.name)) {
+            
+            //Adding absences attribute in case the student does not have one
+            if (!student.absences) {
+                student.absences = {};
+            }
+            
+            //Adding the name of the subject as an attribue in case the student does not have one
+            if (!student.absences[subjectObj.subject]) {
+                student.absences[subjectObj.subject] = {};
+            }
+            
+            if (!student.absences[subjectObj.subject][monthName]) {
+                student.absences[subjectObj.subject][monthName] = [];
+            }
+            
+            if(student.absences[subjectObj.subject][monthName].includes(monthIn_DDMMYY)) {
+                student.absences[subjectObj.subject][monthName] = student.absences[subjectObj.subject][monthName].filter((monthFormat) => {monthIn_DDMMYY !== monthFormat})
+                if(student.absences[subjectObj.subject][monthName].length === 0) {
+                    delete student.absences[subjectObj.subject]
+                }
+
+            } else {
+                student.absences[subjectObj.subject][monthName].push(monthIn_DDMMYY);
+            } 
+        }
+    })
+    
+}
+
+//Separated cell component so that each X cell is a different absence
 const Cell = ({student}) => {
     //Display student data when solicited and set current student
     const { displayStudentStatistics, 
@@ -22,6 +62,7 @@ const Cell = ({student}) => {
             setWantToEditStudent,
             saveData,
             showMessageAlert,
+            currentCourse,
             courses
         } = CoursesContext()
 
@@ -118,6 +159,7 @@ const Cell = ({student}) => {
                     handleCellClick()
                     //This will control each student's absences by adding and deletting them
                     updateTotalAbsences(student, courses)               
+                    absenceForSubject(student, currentCourse)
                 }
             }}
             >

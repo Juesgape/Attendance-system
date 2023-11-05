@@ -2,33 +2,14 @@ const updateTotalAbsences = (student, courses = null) => {
     //The totalAbsences is an attribute that is an object and will store the date as the name of the month (key) 
     //and this name of the month will store an object of the days of the month in which the stutend didn't attend class
     const date = new Date()
-    const currentDay = date.getDay()
     const monthName = date.toLocaleDateString(undefined, {month: 'short'})
     const monthIn_DDMMYY = date.toLocaleDateString()
-    //Creating new absence with month name attribute
-    /* console.log(monthName, 'This is the month name') */
-
-    /* const allSubjectsOfTheDay = courses.subjectsDay[currentDay]
-
-    //Logic for creating absences for day
-    if(courses) {
-        if(allSubjectsOfTheDay) {
-            if(!student.absencesBySubject) {
-                student.absencesBySubject = {}
-            }
-        }
-    } */
 
     if(!student.totalAbsences[monthName]) {
         //Since it's the first time that we create an attribute in the object  we add the day in which the student didn't attend to class
         student.totalAbsences[monthName] = [monthIn_DDMMYY]
         //Adding first absence to the month
         student.absencesThisMonth = student.totalAbsences[monthName].length
-
-        //Updating absences by Subject
-        allSubjectsOfTheDay.forEach((subject) => {
-            student.absencesBySubject[subject] = [monthIn_DDMMYY]
-        })
         /* console.log(student); */
         return ''
     }
