@@ -9,7 +9,14 @@ const TeacherSubjectsWindow = () => {
     const {wantToEditSubjects, setWantToEditSubjects, courses, setCourses} = CoursesContext()
 
     const [newSubject, setNewSubject] = useState('')
-    const [totalSubjects, setTotalSubjects] = useState(null)
+
+    const settingNewSubject = (newSubjectInput) => {
+        if(newSubjectInput.length > 20) {
+            return
+        }
+
+        setNewSubject(newSubjectInput)
+    }
 
     const createNewSubject = () => {
 
@@ -92,7 +99,7 @@ const TeacherSubjectsWindow = () => {
                                 placeholder="Nombre de la materia"
                                 id="newSubjectName"
                                 value={newSubject}
-                                onChange={(event) => setNewSubject(event.target.value)}
+                                onChange={(event) => settingNewSubject(event.target.value)}
                                 className="border text-center p-2 min-w-[300px] border-black rounded-sm focus:outline-none focus:border-green-400 focus:border"
                                 autoComplete="off"
                                 onKeyUp={handleKeyPress}

@@ -4,8 +4,9 @@ import Home from "../Home/index.jsx"
 import NotFound from "../NotFound/index.jsx"
 import Account from "../Account/index.jsx"
 import List from "../List/index.jsx"
-import { AuthContextProvider } from "../../context/AuthContext.jsx"
 import Protected from "../../Components/Protected/index.jsx"
+import EnterName from "../EnterName/index.jsx"
+import { AuthContextProvider } from "../../context/AuthContext.jsx"
 import { CoursesContextProvider } from "../../context/CoursesContext.jsx"
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
           <Route path="/account" element={<Protected> <Account /> </Protected>}/>
           <Route path="/" element={<Protected> <Home /> </Protected>}/>
           <Route path="/list" element={<Protected> <List></List>  </Protected>}></Route>
+          <Route path="/enter-name" element={ <EnterName></EnterName> }></Route>
           <Route path="/*" element={<NotFound />}/>
         </Routes>
       </CoursesContextProvider>

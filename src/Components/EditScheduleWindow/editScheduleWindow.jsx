@@ -217,7 +217,7 @@ const EditScheduleWindow = () => {
                         <div className="w-full flex ">
 
                         <div 
-                            className="bg-[#1b4332] xs:w-[35%] sm:w-[20%]"    
+                            className="bg-black xs:w-[35%] sm:w-[20%] mr-2 rounded-lg"    
                         >
                                 <div className="h-[50%] overflow-y-auto scrollbar-hide border-b-2 border-white">
                                     <p className="text-white">Materias</p>
@@ -225,7 +225,7 @@ const EditScheduleWindow = () => {
                                         courses[0].subjects.map((subject, index) => (
                                             <div 
                                                 key={index}
-                                                className="mb-6 bg-gray-300 rounded-lg m-2 cursor-pointer hover:bg-slate-50"
+                                                className="mb-6 bg-gray-100 rounded-lg m-2 cursor-pointer hover:bg-slate-50"
                                                 draggable="true"
                                                 onDragStart={(e) => handleDragStart(e, subject)}
                                             >
@@ -239,14 +239,14 @@ const EditScheduleWindow = () => {
                                     }
                                 </div>
 
-                                <div className="bg-[#1b4332] h-[50%] overflow-y-auto scrollbar-hide">
+                                <div className="bg-black  h-[50%] overflow-y-auto scrollbar-hide rounded-lg">
                                     <div className="max-h-[20px]">
                                         <p className="text-white">Cursos</p>
                                         { courses?.length > 0 ? (
                                             courses.map((course, index) => (
                                                 <div 
                                                     key={index}
-                                                    className="mb-6 bg-gray-300 rounded-lg m-2 cursor-pointer hover:bg-slate-50"
+                                                    className="mb-6 bg-gray-100 rounded-lg m-2 cursor-pointer hover:bg-slate-50"
                                                     draggable="true"
                                                     onDragStart={(e) => handleDragStartCourse(e, course.name)}
                                                 >
@@ -264,7 +264,7 @@ const EditScheduleWindow = () => {
                             </div>
 
                             <div 
-                                className="border border-black w-[80%] bg-gray-200"
+                                className=" rounded-lg border-black w-[80%]"
                             >
                                 {daysWithSubjects ? (
                                     Object.keys(days).map((day, dayIndex) => (
@@ -282,7 +282,7 @@ const EditScheduleWindow = () => {
                                                         return(
                                                             <div className="relative" key={index}>
                                                                 <div
-                                                                    className="bg-[#1b4332] text-white border-black border p-2 rounded-lg cursor-pointer"
+                                                                    className="bg-black text-white border-black border p-2 px-5 rounded-lg cursor-pointer hover:bg-gray-600"
                                                                     onClick={() => {
                                                                         setDeleteCourseFromSubjectData(subject, day)
                                                                         setWantToDeleteCourseFromSubject(true)

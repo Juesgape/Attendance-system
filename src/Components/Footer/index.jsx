@@ -9,7 +9,7 @@ const Footer = () => {
                 </div>
             </a> */}
 
-            <a href="https://app.gitbook.com/o/MkM9QLSl2CGTRHHQI90A/s/Bi1sLCALRpcs2R2VqrhM/" target="blank" className="">
+            <a href="https://juan-14.gitbook.io/sistema-de-asistencias/" target="blank" className="">
                 <div className="w-full flex justify-center items-center cursor-pointer transition hover:text-blue-600">
                     <p> <span>🟢Preguntas Frecuentes🔵</span> </p>
                 </div>

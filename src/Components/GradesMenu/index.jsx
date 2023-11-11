@@ -136,7 +136,7 @@ const GradesMenu = ({children}) => {
                   type="text"
                   placeholder="Nombre del Grado"
                   id="gradeName"
-                  onChange={(event) => setGradeName(event.target.value)}
+                  onChange={(event) => event.target.value.length > 20 ? '' : setGradeName(event.target.value)}
                   value={gradeName}
                   onKeyUp={handleKeyPress}
                   className="border p-2 border-black rounded-sm focus:outline-none focus:border-green-400 focus:border"
@@ -152,7 +152,7 @@ const GradesMenu = ({children}) => {
                   type="text"
                   placeholder="Nombre del Titular"
                   id="titular"
-                  onChange={(event) => setMainTeacherName(event.target.value)}
+                  onChange={(event) =>  event.target.value.length > 20 ? '' : setMainTeacherName(event.target.value)}
                   value={mainTeacherName}
                   className="border p-2 border-black rounded-sm focus:outline-none focus:border-green-400 focus:border"
                   autoComplete=""
