@@ -222,7 +222,7 @@ const EditScheduleWindow = () => {
                                 <div className="h-[50%] overflow-y-auto scrollbar-hide border-b-2 border-white">
                                     <p className="text-white">Materias</p>
                                     { courses?.length > 0 ? (
-                                        courses[0].subjects.map((subject, index) => (
+                                        courses[0]?.subjects?.map((subject, index) => (
                                             <div 
                                                 key={index}
                                                 className="mb-6 bg-gray-100 rounded-lg m-2 cursor-pointer hover:bg-slate-50"
@@ -277,8 +277,8 @@ const EditScheduleWindow = () => {
                                             <p className="text-left m-2 border-b border-black">{day}</p>
                                             <div className="border-b-2 gap-4 border-black h-[auto] p-2 flex flex-wrap justify-center items-center text-sm">
 
-                                                {daysWithSubjects[dayIndex + 1].length > 0 ? (
-                                                    daysWithSubjects[dayIndex + 1].map((subject, index) => {
+                                                {daysWithSubjects[dayIndex + 1]?.length > 0 ? (
+                                                    daysWithSubjects[dayIndex + 1]?.map((subject, index) => {
                                                         return(
                                                             <div className="relative" key={index}>
                                                                 <div

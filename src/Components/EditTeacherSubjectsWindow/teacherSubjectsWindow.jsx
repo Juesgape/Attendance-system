@@ -130,7 +130,7 @@ const TeacherSubjectsWindow = () => {
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
                             {
                                 courses.length > 0 ? (
-                                    courses[0]["subjects"].map((subject, index) => {
+                                    courses[0]["subjects"]?.map((subject, index) => {
                                         return(
                                             <div key={index} className="flex relative justify-center items-center border-4 border-blue-400 p-4 overflow-auto cursor-pointer hover:bg-blue-200">
                                                 <div 

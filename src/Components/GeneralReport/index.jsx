@@ -107,7 +107,7 @@ const GeneralReport = () => {
                                             </option>
                                         )
                                     ) : (
-                                        <option>Yes</option>
+                                        <option>No tienes cursos</option>
                                     )
                                 }
                                 
