@@ -98,7 +98,7 @@ const GeneralReport = () => {
 
                                 {
                                     currentCourse?.subjects?.length > 0 ? (
-                                        currentCourse.subjects.map((subject, index) =>
+                                        currentCourse?.subjects?.map((subject, index) =>
                                             <option 
                                                 key={index}
                                                 value={subject}

@@ -81,7 +81,7 @@ function Home() {
                         <h4>
                             <button className="text-sm sm:text-lg">Editar usuario</button>
                         </h4>
-                        <img className="hidden sm:flex" src={user.photoURL} alt="" />
+                        <img className="hidden ml-2 max-h-[3rem] rounded-full sm:flex" src={user.photoURL} alt="" />
                     </div>
                     
                     <div>
